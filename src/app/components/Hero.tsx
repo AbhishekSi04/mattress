@@ -41,8 +41,9 @@ const Hero = () => {
             </h1>
             
             <h2 className="text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed font-light">
-              The world's most advanced sleep system, personalized to your unique body and preferences. Experience the difference of
-              <span className="font-medium text-indigo-600"> scientifically optimized rest.</span>
+            <span className="font-medium text-indigo-600">MattressWala </span>
+            brings you the world's most advanced sleep system, personalized to your unique body and preferences.
+            Experience the difference of scientifically optimized rest
             </h2>
             
             {/* Feature highlights in a more elegant layout */}
