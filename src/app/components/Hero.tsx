@@ -137,7 +137,7 @@ const Hero = () => {
               {/* Main image with enhanced frame */}
               <div className="relative p-2 bg-gradient-to-tr from-white to-gray-50 rounded-3xl shadow-xl border border-gray-100">
                 <Image 
-                  src="/images/hero-mattress.png"
+                  src="/matt.png"
                   alt="Premium mattress for better sleep" 
                   width={650} 
                   height={450} 
