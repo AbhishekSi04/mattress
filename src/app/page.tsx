@@ -1,20 +1,30 @@
 import React from 'react';
 import Hero from './components/Hero';
-import MattressBuilderPreview from './components/MattressBuilderPreview';
+import ProductShowcase from './components/ProductShowcase';
 import SleepQuizPreview from './components/SleepQuizPreview';
-import UGCSection from './components/UGCSection';
+import TestimonialsSection from './components/TestimonialsSection';
+import SleepExpertise from './components/SleepExpertise';
+import TrustBadges from './components/TrustBadges';
 import InfluencerCollab from './components/InfluencerCollab';
 import ReferralProgram from './components/ReferralProgram';
+import ContactCTA from './components/ContactCTA';
+import Footer from './components/Footer';
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <MattressBuilderPreview />
-      <SleepQuizPreview />
-      <UGCSection />
-      <InfluencerCollab />
-      <ReferralProgram />
-    </main>
+    <>
+      <main>
+        <TrustBadges />
+        <Hero />
+        <ProductShowcase />
+        <TestimonialsSection />
+        <SleepQuizPreview />
+        <SleepExpertise />
+        <InfluencerCollab />
+        <ReferralProgram />
+        <ContactCTA />
+      </main>
+      <Footer />
+    </>
   );
 }
