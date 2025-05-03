@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,7 +6,7 @@ import { ArrowRight, Star, Shield, Truck, Sparkles, Check, Moon } from 'lucide-r
 
 const Hero = () => {
   return (
-    <section className="relative bg-white overflow-hidden py-28">
+    <section className="relative bg-white overflow-hidden pt-4 pb-28">
       {/* Elegant background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-b from-indigo-50 to-transparent opacity-60"></div>

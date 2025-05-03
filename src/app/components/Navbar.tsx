@@ -154,7 +154,7 @@ const navLinks = [
 ];
 
 // Desktop nav link component
-const NavLink = ({ href, children, icon }) => {
+const NavLink = ({ href, children, icon }: { href: string; children: React.ReactNode; icon?: React.ReactNode }) => {
   return (
     <Link 
       href={href} 
@@ -170,7 +170,7 @@ const NavLink = ({ href, children, icon }) => {
 };
 
 // Mobile nav link component
-const MobileNavLink = ({ href, onClick, children, icon }) => {
+const MobileNavLink = ({ href, onClick, children, icon }: { href: string; onClick: () => void; children: React.ReactNode; icon?: React.ReactNode }) => {
   return (
     <Link 
       href={href} 
