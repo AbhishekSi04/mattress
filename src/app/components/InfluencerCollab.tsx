@@ -71,7 +71,7 @@ const InfluencerCollab: React.FC = () => {
           
           <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-4">Our Sleep Ambassadors</h2>
           <p className="text-gray-600 text-center max-w-2xl mx-auto">
-            Trusted by sleep experts and wellness influencers who've experienced the difference our mattresses make.
+            Trusted by sleep experts and wellness influencers who&apos;ve experienced the difference our mattresses make.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ const InfluencerCollab: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                   <div className="text-white">
-                    <p className="font-light italic">"{influencer.quote}"</p>
+                    <p className="font-light italic">{influencer.quote}</p>
                   </div>
                 </div>
               </div>
