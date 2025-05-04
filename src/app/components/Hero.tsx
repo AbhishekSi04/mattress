@@ -43,7 +43,7 @@ const Hero = () => {
             
             <h2 className="text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed font-light">
             <span className="font-medium text-indigo-600">MattressWala </span>
-            brings you the world's most advanced sleep system, personalized to your unique body and preferences.
+            brings you the world&apos;s most advanced sleep system&rsquo; personalized to your unique body and preferences.
             Experience the difference of scientifically optimized rest
             </h2>
             
@@ -119,13 +119,13 @@ const Hero = () => {
                     ))}
                   </div>
                   <p className="text-gray-600 text-sm">
-                    <span className="font-semibold">4.9/5</span> from over 12,000+ happy sleepers
+                    <span className="font-semibold">4.9/5</span> from over 12&apos;000+ happy sleepers
                   </p>
                 </div>
               </div>
               
               <div className="hidden md:block pl-4 border-l border-gray-200">
-                <p className="text-gray-600 text-sm font-medium">"Best purchase I've made in years!"</p>
+                <p className="text-gray-600 text-sm font-medium">&quot;Best purchase I&apos;ve made in years!&quot;</p>
               </div>
             </div>
           </div>

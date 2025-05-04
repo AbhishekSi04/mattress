@@ -71,7 +71,7 @@ const ContactCTA = () => {
                 </div>
                 
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Email Us</h3>
-                <p className="text-gray-600 mb-6">Send us your questions and we'll get back to you within 24 hours</p>
+                <p className="text-gray-600 mb-6">Send us your questions and we&apos;ll get back to you within 24 hours</p>
                 
                 <div className="bg-purple-50 rounded-xl p-4 mb-6">
                   <div className="flex items-center gap-3 mb-2">

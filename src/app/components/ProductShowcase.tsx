@@ -24,15 +24,6 @@ interface Product {
   details: ProductDetails;
 }
 
-interface Review {
-  id: number;
-  name: string;
-  rating: number;
-  text: string;
-  date: string;
-  image: string;
-}
-
 const ProductShowcase = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -156,10 +147,6 @@ const ProductShowcase = () => {
 
   const nextReview = () => {
     setCurrentReview((currentReview + 1) % reviews.length);
-  };
-
-  const prevReview = () => {
-    setCurrentReview((currentReview - 1 + reviews.length) % reviews.length);
   };
 
   useEffect(() => {
