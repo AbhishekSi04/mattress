@@ -95,7 +95,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-gray-400 mb-6">
-              We're on a mission to help everyone sleep better. Our award-winning mattresses are designed in India, for Indian sleepers.
+              We&apos;re on a mission to help everyone sleep better. Our award-winning mattresses are designed in India&lsquo; for Indian sleepers.
             </p>
             <div className="flex space-x-4 mb-6">
               {socialLinks.map((social) => (
