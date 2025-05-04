@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, Moon, Activity, Shield } from 'lucide-react';
+import Image from 'next/image';
 
 const SleepExpertise = () => {
   return (
@@ -9,7 +10,7 @@ const SleepExpertise = () => {
           <h2 className="text-4xl font-bold text-gray-900 mb-3">Designed Purposefully for <span className="text-indigo-600">India</span></h2>
           <div className="w-24 h-1 bg-indigo-600 mx-auto mb-6"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Crafted from extensive research to deliver the perfect night's sleep for Indian sleepers
+            Crafted from extensive research to deliver the perfect night&apos;s sleep for Indian sleepers
           </p>
         </div>
         
@@ -17,9 +18,11 @@ const SleepExpertise = () => {
           <div className="lg:w-1/2 relative">
             <div className="bg-indigo-600 absolute -top-4 -left-4 w-24 h-24 rounded-full opacity-20"></div>
             <div className="relative overflow-hidden rounded-2xl shadow-xl">
-              <img 
+              <Image 
                 src="/api/placeholder/600/400" 
                 alt="Sleep research and development" 
+                width={600}
+                height={400}
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-indigo-900/70 to-transparent p-6">
