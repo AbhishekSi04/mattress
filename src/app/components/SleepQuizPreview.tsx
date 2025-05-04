@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Moon, Sun, Activity, CheckCircle, BedDouble, ThermometerSnowflake, Weight, User } from 'lucide-react';
+import { ArrowRight, Sun, Activity, CheckCircle, BedDouble, ThermometerSnowflake, Weight, User } from 'lucide-react';
 
 const SleepQuizPreview = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -69,7 +69,7 @@ const SleepQuizPreview = () => {
       case 2:
         return (
           <>
-            <h3 className="text-2xl font-bold text-gray-800 mb-8">What's your body type?</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-8">What&apos;s your body type?</h3>
             <div className="space-y-4">
               {[
                 { id: 1, label: "Petite (under 130 lbs)", icon: <Weight size={20} /> },
