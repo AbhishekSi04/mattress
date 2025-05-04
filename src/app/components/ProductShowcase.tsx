@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Star, Award, Truck, Clock, CheckCircle, Plus, Minus, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Award, Truck, Clock, CheckCircle,} from 'lucide-react';
 
 // Define interfaces for type safety
 interface ProductDetails {
@@ -276,9 +276,9 @@ const ProductShowcase = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                 <div className="font-medium text-gray-700">Price</div>
                 {compareList.map(product => (
-                  <div key={`${(product as any).id}-price`} className="text-center">
-                    <span className="text-indigo-600 font-bold">{(product as any).salePrice}</span>
-                    <span className="text-gray-400 line-through ml-2 text-sm">{(product as any).price}</span>
+                  <div key={`${product.id}-price`} className="text-center">
+                    <span className="text-indigo-600 font-bold">{product.salePrice}</span>
+                    <span className="text-gray-400 line-through ml-2 text-sm">{product.price}</span>
                   </div>
                 ))}
               </div>

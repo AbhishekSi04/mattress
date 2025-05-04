@@ -246,7 +246,7 @@ const TestimonialsSection = () => {
           
           <h2 className="text-4xl font-bold mb-4 text-indigo-900">What Our Customers Say</h2>
           <p className="text-xl font-semibold text-indigo-600 mb-2">
-            "Exceptional&lsquo; It&apos;s one of the best mattresses in India we&apos;ve tested in years!"
+            &quot;Exceptional&lsquo; It&apos;s one of the best mattresses in India we&apos;ve tested in years!&quot;
           </p>
           <p className="text-lg text-gray-600">
             Our Original Mattress - Awarded Best Mattress by CHOICE®
@@ -332,7 +332,7 @@ const TestimonialsSection = () => {
                   className="flex transition-transform duration-500 h-full"
                   style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
                 >
-                  {activeGroup?.testimonials.map((testimonial, index) => (
+                  {activeGroup?.testimonials.map((testimonial,) => (
                     <div key={testimonial.id} className="w-full flex-shrink-0 p-8">
                       <div className="flex items-center mb-4">
                         <img 
@@ -452,7 +452,7 @@ const TestimonialsSection = () => {
                   </div>
                   <span className="text-xs text-gray-500">{testimonial.date}</span>
                 </div>
-                <p className="text-gray-700 text-sm mb-3">"{testimonial.text}"</p>
+                <p className="text-gray-700 text-sm mb-3">&quot;{testimonial.text}&quot;</p>
                 <div className="flex items-center text-sm">
                   <span className="font-semibold">{testimonial.name}</span>
                   {testimonial.verified && (
@@ -475,7 +475,7 @@ const TestimonialsSection = () => {
                   <span className="text-xs text-gray-500">March 2025</span>
                 </div>
                 <p className="text-gray-700 text-sm mb-3">
-                  "This mattress has completely changed how I sleep. Amazing quality and great value for money."
+                  &quot;This mattress has completely changed how I sleep. Amazing quality and great value for money.&quot;
                 </p>
                 <div className="flex items-center text-sm">
                   <span className="font-semibold">Happy Customer</span>
