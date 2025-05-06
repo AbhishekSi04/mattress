@@ -183,7 +183,7 @@ const ProductShowcase = () => {
               onClick={() => setActiveTab('all')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 activeTab === 'all' 
-                ? 'bg-indigo-600 text-white shadow-lg' 
+                ? 'bg-[#1aa39a] text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >

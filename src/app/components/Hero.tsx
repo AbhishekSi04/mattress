@@ -25,12 +25,36 @@ const Hero = () => {
       <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #e0e7ff 1px, transparent 1px)', backgroundSize: '30px 30px', opacity: '0.2' }}></div>
       
       <div className="container mx-auto px-4">
+        {/* Logo section at the top
+        <div className="flex justify-center mb-8">
+          <div className="relative w-64 h-auto">
+            <Image 
+              src="/logo.jpg"
+              alt="MattressWala Logo" 
+              width={250} 
+              height={100}
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div> */}
+        
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Content column */}
           <div className="lg:w-1/2 z-10">
-            <div className="inline-flex items-center bg-gradient-to-r from-indigo-50 to-blue-50 text-indigo-600 px-4 py-2 rounded-full mb-8 shadow-sm">
-              <Sparkles className="mr-2" size={16} />
-              <span className="text-sm font-medium">Revolutionary Sleep Science</span>
+            
+            {/* Logo above the heading */}
+            <div className="flex justify-start mb-6">
+              <div className="relative w-48 h-auto">
+                <Image 
+                  src="/logo.jpg"
+                  alt="MattressWala Logo" 
+                  width={180} 
+                  height={75}
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
             
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 tracking-tight text-gray-900 leading-tight">
@@ -95,13 +119,13 @@ const Hero = () => {
                 <div className="flex -space-x-4 mr-4">
                   {[1, 2, 3, 4].map((person) => (
                     <div key={person} className="w-10 h-10 rounded-full border-2 border-white bg-gray-200 overflow-hidden shadow-sm">
-                      <Image 
+                      {/* <Image 
                         src={`/images/person-${person}.jpg`}
                         alt="Customer" 
                         width={40} 
                         height={40}
                         className="object-cover w-full h-full"
-                      />
+                      /> */}
                     </div>
                   ))}
                   <div className="w-10 h-10 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-600 border-2 border-white text-xs font-medium">
@@ -145,6 +169,17 @@ const Hero = () => {
                   height={450} 
                   className="rounded-2xl"
                 />
+                
+                {/* Logo overlay on the mattress image */}
+                <div className="absolute top-4 right-4 bg-white/80 p-2 rounded-lg shadow-sm">
+                  <Image 
+                    src="/mattresswala-logo.png"
+                    alt="MattressWala Logo" 
+                    width={120} 
+                    height={50}
+                    className="object-contain"
+                  />
+                </div>
                 
                 {/* Floating badge with enhanced design */}
                 <div className="absolute -bottom-8 -right-8 bg-white p-5 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl hover:border-indigo-200 transition-all duration-300">

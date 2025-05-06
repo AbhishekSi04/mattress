@@ -7,8 +7,8 @@ const SleepExpertise = () => {
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-3">Designed Purposefully for <span className="text-indigo-600">India</span></h2>
-          <div className="w-24 h-1 bg-indigo-600 mx-auto mb-6"></div>
+          <h2 className="text-4xl font-bold text-gray-900 mb-3">Designed Purposefully for <span className="text-[#1aa39a]">India</span></h2>
+          <div className="w-24 h-1 bg-[#1aa39a] mx-auto mb-6"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Crafted from extensive research to deliver the perfect night&apos;s sleep for Indian sleepers
           </p>
@@ -76,7 +76,7 @@ const SleepExpertise = () => {
               </div>
               
               <div className="mt-8">
-                <button className="bg-indigo-600 text-white font-medium py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300 flex items-center">
+                <button className="bg-[#1aa39a] text-white font-medium py-3 px-8 rounded-lg hover:bg-[#159089] transition-colors duration-300 flex items-center">
                   Discover Our Sleep Technology
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />

@@ -6,7 +6,7 @@ const ContactCTA = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1aa39a]/10 via-[#22a8a2]/10 to-[#2a73af]/10 z-0"></div>
       
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-100 rounded-full -translate-y-1/2 translate-x-1/2 opacity-60"></div>
@@ -21,7 +21,7 @@ const ContactCTA = () => {
               <span>24/7 Support</span>
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] bg-clip-text text-transparent">
               Need help deciding?
             </h2>
             
