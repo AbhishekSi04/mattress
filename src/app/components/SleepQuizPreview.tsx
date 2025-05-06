@@ -45,7 +45,7 @@ const SleepQuizPreview = () => {
                   onMouseLeave={() => setHoverOption(null)}
                   onClick={() => setSelectedOption(option.id)}
                 >
-                  <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6">
+                  <div className="bg-gradient-to-br from-[#1aa39a]/10 to-[#2a73af]/10 p-6">
                     <div className="h-32 flex items-center justify-center mb-4">
                       <img src={option.image} alt={option.label} className="rounded-md" />
                     </div>
@@ -125,7 +125,7 @@ const SleepQuizPreview = () => {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-1 rounded-full bg-red-100 text-red-800 text-sm font-medium mb-4">Sleep Better Tonight</span>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">Find Your Perfect Mattress</h2>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#1aa39a] to-[#2a73af] bg-clip-text text-transparent mb-4">Find Your Perfect Mattress</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Our AI-powered sleep quiz analyzes 12+ factors to recommend your ideal mattress with 98% accuracy.
           </p>
@@ -137,7 +137,7 @@ const SleepQuizPreview = () => {
             {/* Progress bar */}
             <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 transform -translate-y-1/2"></div>
             <div 
-              className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-red-500 to-purple-500 transform -translate-y-1/2 transition-all duration-500"
+              className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-red-500 to-[#2a73af] transform -translate-y-1/2 transition-all duration-500"
               style={{ width: `${((activeStep - 1) / (steps.length - 1)) * 100}%` }}
             ></div>
             
@@ -189,13 +189,13 @@ const SleepQuizPreview = () => {
               {activeStep < 4 ? (
                 <button 
                   onClick={handleNextStep}
-                  className="px-8 py-3 bg-gradient-to-r from-red-600 to-purple-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
+                  className="px-8 py-3 bg-gradient-to-r from-red-600 to-[#2a73af] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
                 >
                   Continue <ArrowRight className="ml-2" size={20} />
                 </button>
               ) : (
                 <Link href="/quiz" 
-                  className="px-8 py-3 bg-gradient-to-r from-red-600 to-purple-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
+                  className="px-8 py-3 bg-gradient-to-r from-red-600 to-[#2a73af] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
                 >
                   Take the Full Quiz <ArrowRight className="ml-2" size={20} />
                 </Link>

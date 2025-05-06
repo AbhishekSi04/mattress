@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className={`bg-gradient-to-r from-blue-900 via-indigo-800 to-purple-900 h-1.5 w-full`}></div>
+      <div className={`bg-gradient-to-r from-[#1aa39a] via-[#22a8a2] to-[#2a73af] h-1.5 w-full`}></div>
       <nav className={`${
         isScrolled 
           ? 'bg-white shadow-lg' 
@@ -42,8 +42,8 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="ml-2">
-                <span className="font-extrabold text-2xl bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 bg-clip-text text-transparent">
-                  Mattress<span className="text-purple-700">Wala</span>
+                <span className="font-extrabold text-2xl bg-clip-text">
+                  <span className="text-[#1aa39a]">Mattress</span><span className="text-[#2a73af]">Wala</span>
                 </span>
                 <p className="text-xs text-gray-500 -mt-1">Premium Comfort Solutions</p>
               </div>
@@ -77,7 +77,7 @@ const Navbar = () => {
                 </div>
               </Link>
               <Link href="/builder" className="hidden xl:block">
-                <button className="ml-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
+                <button className="ml-4 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white font-bold py-2 px-6 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
                   Build Your Mattress
                 </button>
               </Link>
@@ -114,7 +114,7 @@ const Navbar = () => {
               ))}
               
               <Link href="/builder" onClick={() => setIsMenuOpen(false)} className="block mt-4">
-                <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300">
+                <button className="w-full bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300">
                   Build Your Mattress Now
                 </button>
               </Link>
@@ -136,7 +136,7 @@ const Navbar = () => {
       </nav>
       
       {/* Promotional Bar */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-800 to-purple-900 text-white text-center py-2 text-sm font-medium">
+      <div className="bg-gradient-to-r from-[#1aa39a] via-[#22a8a2] to-[#2a73af] text-white text-center py-2 text-sm font-medium">
         🎁 Special Offer: Get 10% OFF your custom mattress! Use code: <span className="font-bold">DREAMY10</span>
       </div>
     </>
@@ -160,10 +160,10 @@ const NavLink = ({ href, children, icon }: { href: string; children: React.React
       href={href} 
       className="relative px-3 py-2 group"
     >
-      <div className="absolute inset-0 bg-purple-100 rounded-md scale-0 transition-all duration-300 group-hover:scale-100 -z-10"></div>
+      <div className="absolute inset-0 bg-[#1aa39a]/10 rounded-md scale-0 transition-all duration-300 group-hover:scale-100 -z-10"></div>
       <div className="flex items-center space-x-1">
-        {icon && <span className="text-purple-600">{icon}</span>}
-        <span className="font-medium text-gray-700 group-hover:text-purple-700 transition-colors">{children}</span>
+        {icon && <span className="text-[#1aa39a]">{icon}</span>}
+        <span className="font-medium text-gray-700 group-hover:text-[#1aa39a] transition-colors">{children}</span>
       </div>
     </Link>
   );
