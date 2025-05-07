@@ -246,7 +246,7 @@ const TestimonialsSection = () => {
           
           <h2 className="text-4xl font-bold mb-4 text-indigo-900">What Our Customers Say</h2>
           <p className="text-xl font-semibold text-indigo-600 mb-2">
-            &quot;Exceptiona It&apos;s one of the best mattresses in India we&apos;ve tested in years!&quot;
+            &quot;Exceptional It&apos;s one of the best mattresses in India we&apos;ve tested in years!&quot;
           </p>
           <p className="text-lg text-gray-600">
             Our Original Mattress - Awarded Best Mattress by CHOICE®
