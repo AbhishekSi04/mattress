@@ -46,14 +46,14 @@ const Hero = () => {
             {/* Logo above the heading */}
             <div className="flex justify-start mb-6">
               <div className="relative w-48 h-auto">
-                <Image 
+                {/* <Image 
                   src="/mattresswala-logo.png"
                   alt="MattressWala Logo" 
                   width={180} 
                   height={75}
                   className="object-contain"
                   priority
-                />
+                /> */}
               </div>
             </div>
             
@@ -172,13 +172,13 @@ const Hero = () => {
                 
                 {/* Logo overlay on the mattress image */}
                 <div className="absolute top-4 right-4 bg-white/80 p-2 rounded-lg shadow-sm">
-                  <Image 
+                  {/* <Image 
                     src="/mattresswala-logo.png"
                     alt="MattressWala Logo" 
                     width={120} 
                     height={50}
                     className="object-contain"
-                  />
+                  /> */}
                 </div>
                 
                 {/* Floating badge with enhanced design */}

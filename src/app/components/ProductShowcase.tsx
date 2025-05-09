@@ -468,10 +468,10 @@ const ProductShowcase = () => {
                     </div>
                     
                     <div className="flex space-x-4 mb-6">
-                      <button className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                      <button className="flex-1 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] hover:from-[#159089] hover:to-[#24659a] text-white font-bold py-3 px-4 rounded-lg transition-colors">
                         Buy Now
                       </button>
-                      <button className="flex-1 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-bold py-3 px-4 rounded-lg transition-colors">
+                      <button className="flex-1 border border-[#1aa39a] text-[#1aa39a] hover:bg-[#1aa39a]/5 font-bold py-3 px-4 rounded-lg transition-colors">
                         Add to Cart
                       </button>
                     </div>
