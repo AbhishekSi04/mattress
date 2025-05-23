@@ -36,16 +36,13 @@ const Navbar = () => {
             {/* Logo */}
             <Link href="/" className="flex items-center space a-x-2 group">
               <div className="relative">
-                <BedDouble className="h-10 w-10 text-purple-600" />
                 <div className="absolute -top-1 -right-1">
-                  <Star fill="#FFD700" className="h-4 w-4 text-yellow-400" />
                 </div>
               </div>
               <div className="ml-2">
                 <span className="font-extrabold text-2xl bg-clip-text">
                   <span className="text-[#1aa39a]">Mattress</span><span className="text-[#2a73af]">Wala</span>
                 </span>
-                <p className="text-xs text-gray-500 -mt-1">Premium Comfort Solutions</p>
               </div>
             </Link>
 
@@ -59,7 +56,7 @@ const Navbar = () => {
             </div>
 
             {/* Right icons section */}
-            <div className="hidden lg:flex items-center space-x-4">
+            {/* <div className="hidden lg:flex items-center space-x-4">
               <button className="text-gray-600 hover:text-purple-600 transition-colors p-2 rounded-full hover:bg-purple-100">
                 <Search className="h-5 w-5" />
               </button>
@@ -81,7 +78,7 @@ const Navbar = () => {
                   Build Your Mattress
                 </button>
               </Link>
-            </div>
+            </div> */}
 
             {/* Mobile menu button */}
             <div className="flex items-center lg:hidden space-x-3">
