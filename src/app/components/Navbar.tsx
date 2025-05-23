@@ -54,32 +54,7 @@ const Navbar = () => {
                 </NavLink>
               ))}
             </div>
-
-            {/* Right icons section */}
-            {/* <div className="hidden lg:flex items-center space-x-4">
-              <button className="text-gray-600 hover:text-purple-600 transition-colors p-2 rounded-full hover:bg-purple-100">
-                <Search className="h-5 w-5" />
-              </button>
-              <Link href="/wishlist" className="text-gray-600 hover:text-purple-600 transition-colors p-2 rounded-full hover:bg-purple-100 relative">
-                <Heart className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 bg-purple-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">2</span>
-              </Link>
-              <Link href="/account" className="text-gray-600 hover:text-purple-600 transition-colors p-2 rounded-full hover:bg-purple-100">
-                <User className="h-5 w-5" />
-              </Link>
-              <Link href="/cart" className="relative">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-full transition-transform hover:scale-110">
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span>
-                </div>
-              </Link>
-              <Link href="/builder" className="hidden xl:block">
-                <button className="ml-4 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white font-bold py-2 px-6 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105">
-                  Build Your Mattress
-                </button>
-              </Link>
-            </div> */}
-
+            
             {/* Mobile menu button */}
             <div className="flex items-center lg:hidden space-x-3">
               <Link href="/cart" className="relative text-gray-700">
