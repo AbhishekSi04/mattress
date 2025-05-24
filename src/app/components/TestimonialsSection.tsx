@@ -5,9 +5,8 @@ import { Star, CheckCircle, Quote, ChevronLeft, ChevronRight, MessageCircle, Awa
 const TestimonialsSection = () => {
   const [activeTab, setActiveTab] = useState('sleep');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoPlaying,] = useState(false);
   const [showAllTestimonials] = useState(false);
-  const videoRef = useRef(null);
 
   interface renderStars{
     rating: number;
