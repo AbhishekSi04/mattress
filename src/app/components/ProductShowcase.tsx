@@ -34,7 +34,7 @@ const ProductShowcase = () => {
   const products = [
     {
       id: 'original',
-      name: 'Original Mattress',
+      name: 'Original',
       category: 'memory-foam',
       description: 'Our award-winning mattress with perfect balance of comfort and support',
       image: '/api/placeholder/400/320',
@@ -52,7 +52,7 @@ const ProductShowcase = () => {
     },
     {
       id: 'hybrid',
-      name: 'Hybrid Mattress',
+      name: 'Hybrid',
       category: 'hybrid',
       description: 'The perfect combination of memory foam comfort and spring support',
       image: '/api/placeholder/400/320',
@@ -70,7 +70,7 @@ const ProductShowcase = () => {
     },
     {
       id: 'luxury',
-      name: 'Luxury Mattress',
+      name: 'Luxury',
       category: 'luxury',
       description: 'Our premium mattress with advanced cooling and ultimate comfort',
       image: '/api/placeholder/400/320',
@@ -348,9 +348,9 @@ const ProductShowcase = () => {
                 </div>
               </div>
               
-              <div className="p-6">
+              <div className="p-6 flex flex-col h-[420px]">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-gray-900">{product.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 h-[28px] overflow-hidden">{product.name}</h3>
                   <div className="flex items-center">
                     <div className="flex mr-1">
                       {renderStars(product.rating)}
@@ -359,13 +359,13 @@ const ProductShowcase = () => {
                   </div>
                 </div>
                 
-                <p className="text-gray-600 mb-4 h-12 overflow-hidden">{product.description}</p>
+                <p className="text-gray-600 mb-4 h-[48px] line-clamp-2">{product.description}</p>
                 
-                <ul className="mb-6">
+                <ul className="mb-6 h-[96px]">
                   {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-center mb-2 text-gray-700">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                      {feature}
+                    <li key={index} className="flex items-center mb-2 text-gray-700 h-[24px] overflow-hidden">
+                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                      <span className="truncate">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -382,7 +382,7 @@ const ProductShowcase = () => {
                 </div>
                 
                 <button 
-                  className="w-full bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white text-center py-3 rounded-lg font-bold transition-colors flex items-center justify-center"
+                  className="w-full mt-auto bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white text-center py-3 rounded-lg font-bold transition-colors flex items-center justify-center"
                 >
                   <span>Add to Cart</span>
                 </button>
