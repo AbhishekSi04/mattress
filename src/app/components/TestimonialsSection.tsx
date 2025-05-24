@@ -5,9 +5,8 @@ import { Star, CheckCircle, Quote, ChevronLeft, ChevronRight, MessageCircle, Awa
 const TestimonialsSection = () => {
   const [activeTab, setActiveTab] = useState('sleep');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
-  const videoRef = useRef(null);
+  const [isVideoPlaying,] = useState(false);
+  const [showAllTestimonials] = useState(false);
 
   interface renderStars{
     rating: number;
@@ -130,29 +129,29 @@ const TestimonialsSection = () => {
     }
   ];
 
-  const videoTestimonials = [
-    {
-      id: 1,
-      name: 'Rajesh & Sunita Verma',
-      title: 'Resolved our different firmness preferences',
-      thumbnail: '/api/placeholder/400/225',
-      duration: '2:34'
-    },
-    {
-      id: 2,
-      name: 'Dr. Kavita Murthy',
-      title: 'How it improved my patients\' back pain',
-      thumbnail: '/api/placeholder/400/225',
-      duration: '3:16'
-    },
-    {
-      id: 3,
-      name: 'The Sharma Family',
-      title: 'Our whole family sleeps better now',
-      thumbnail: '/api/placeholder/400/225',
-      duration: '1:58'
-    }
-  ];
+  // const videoTestimonials = [
+  //   {
+  //     id: 1,
+  //     name: 'Rajesh & Sunita Verma',
+  //     title: 'Resolved our different firmness preferences',
+  //     thumbnail: '/api/placeholder/400/225',
+  //     duration: '2:34'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Dr. Kavita Murthy',
+  //     title: 'How it improved my patients\' back pain',
+  //     thumbnail: '/api/placeholder/400/225',
+  //     duration: '3:16'
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'The Sharma Family',
+  //     title: 'Our whole family sleeps better now',
+  //     thumbnail: '/api/placeholder/400/225',
+  //     duration: '1:58'
+  //   }
+  // ];
 
   const awards = [
     {
@@ -213,16 +212,16 @@ const TestimonialsSection = () => {
     return () => clearInterval(interval);
   }, [currentTestimonial, isVideoPlaying, activeGroup]);
 
-  const toggleVideoPlay = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        (videoRef.current as HTMLVideoElement).pause();
-      } else {
-        (videoRef.current as HTMLVideoElement).play()
-      }
-      setIsVideoPlaying(!isVideoPlaying);
-    }
-  };
+  // const toggleVideoPlay = () => {
+  //   if (videoRef.current) {
+  //     if (isVideoPlaying) {
+  //       (videoRef.current as HTMLVideoElement).pause();
+  //     } else {
+  //       (videoRef.current as HTMLVideoElement).play()
+  //     }
+  //     setIsVideoPlaying(!isVideoPlaying);
+  //   }
+  // };
 
   const renderStars = (rating:number) => {
     return Array(5).fill(0).map((_, i) => (
