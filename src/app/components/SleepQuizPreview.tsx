@@ -137,7 +137,7 @@ const SleepQuizPreview = () => {
             {/* Progress bar */}
             <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 transform -translate-y-1/2"></div>
             <div 
-              className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-red-500 to-[#2a73af] transform -translate-y-1/2 transition-all duration-500"
+              className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] transform -translate-y-1/2 transition-all duration-500"
               style={{ width: `${((activeStep - 1) / (steps.length - 1)) * 100}%` }}
             ></div>
             
@@ -146,15 +146,15 @@ const SleepQuizPreview = () => {
               {steps.map((step) => (
                 <div key={step.id} className="flex flex-col items-center">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 shadow-md border-2 z-10 transition-all duration-300 ${
-                    step.id < activeStep ? 'bg-gradient-to-br from-red-500 to-purple-600 border-white text-white' :
-                    step.id === activeStep ? 'bg-white border-red-500 text-red-600' :
+                    step.id < activeStep ? 'bg-gradient-to-br from-[#1aa39a] to-[#2a73af] border-white text-white' :
+                    step.id === activeStep ? 'bg-white border-[#1aa39a] text-[#1aa39a]' :
                     'bg-white border-gray-200 text-gray-400'
                   }`}>
                     {step.icon}
                   </div>
                   <span className={`text-sm font-medium ${
-                    step.id === activeStep ? 'text-red-600' : 
-                    step.id < activeStep ? 'text-purple-600' : 'text-gray-400'
+                    step.id === activeStep ? 'text-[#1aa39a]' : 
+                    step.id < activeStep ? 'text-[#2a73af]' : 'text-gray-400'
                   }`}>
                     {step.title}
                   </span>
@@ -189,13 +189,13 @@ const SleepQuizPreview = () => {
               {activeStep < 4 ? (
                 <button 
                   onClick={handleNextStep}
-                  className="px-8 py-3 bg-gradient-to-r from-red-600 to-[#2a73af] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
+                  className="px-8 py-3 bg-gradient-to-r from-[#1aa39a] via-[#22a8a2] to-[#2a73af] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
                 >
                   Continue <ArrowRight className="ml-2" size={20} />
                 </button>
               ) : (
                 <Link href="/quiz" 
-                  className="px-8 py-3 bg-gradient-to-r from-red-600 to-[#2a73af] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
+                  className="px-8 py-3 bg-gradient-to-r from-[#1aa39a] via-[#22a8a2] to-[#2a73af] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center"
                 >
                   Take the Full Quiz <ArrowRight className="ml-2" size={20} />
                 </Link>
