@@ -20,8 +20,8 @@ export default function Home() {
         <SleepQuizPreview />
         <SleepExpertise />
         <InfluencerCollab />
-        <ReferralProgram />
-        <ContactCTA />
+        {/* <ReferralProgram /> */}
+        {/* <ContactCTA /> */}
       </main>
       <Footer />
     </>

@@ -193,7 +193,7 @@ const ProductShowcase = () => {
               onClick={() => setActiveTab('memory-foam')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 activeTab === 'memory-foam' 
-                ? 'bg-indigo-600 text-white shadow-lg' 
+                ? 'bg-[#1aa39a] text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -203,7 +203,7 @@ const ProductShowcase = () => {
               onClick={() => setActiveTab('hybrid')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 activeTab === 'hybrid' 
-                ? 'bg-indigo-600 text-white shadow-lg' 
+                ? 'bg-[#1aa39a] text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -213,7 +213,7 @@ const ProductShowcase = () => {
               onClick={() => setActiveTab('luxury')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 activeTab === 'luxury' 
-                ? 'bg-indigo-600 text-white shadow-lg' 
+                ? 'bg-[#1aa39a] text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -223,7 +223,7 @@ const ProductShowcase = () => {
               onClick={() => setActiveTab('specialized')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 activeTab === 'specialized' 
-                ? 'bg-indigo-600 text-white shadow-lg' 
+                ? 'bg-[#1aa39a] text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -239,7 +239,7 @@ const ProductShowcase = () => {
               <h3 className="text-2xl font-bold text-indigo-900">Compare Mattresses</h3>
               <button 
                 onClick={() => {setCompareMode(false); setCompareList([])}}
-                className="text-sm text-indigo-600 hover:text-indigo-800"
+                className="text-sm text-[#1aa39a] hover:text-[#2a73af]"
               >
                 Clear All
               </button>
@@ -264,7 +264,7 @@ const ProductShowcase = () => {
                 <div className="font-medium text-gray-700">Price</div>
                 {compareList.map(product => (
                   <div key={`${product.id}-price`} className="text-center">
-                    <span className="text-indigo-600 font-bold">{product.salePrice}</span>
+                    <span className="text-[#1aa39a] font-bold">{product.salePrice}</span>
                     <span className="text-gray-400 line-through ml-2 text-sm">{product.price}</span>
                   </div>
                 ))}
@@ -330,7 +330,7 @@ const ProductShowcase = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     onClick={() => setSelectedProduct(product)}
-                    className="bg-white text-indigo-600 rounded-full py-2 px-4 font-medium mx-2 shadow-lg hover:bg-indigo-50 transition-colors"
+                    className="bg-white text-[#1aa39a] rounded-full py-2 px-4 font-medium mx-2 shadow-lg hover:bg-indigo-50 transition-colors"
                   >
                     Quick View
                   </button>
@@ -338,8 +338,8 @@ const ProductShowcase = () => {
                     onClick={() => toggleCompare(product)}
                     className={`rounded-full py-2 px-4 font-medium mx-2 shadow-lg transition-colors ${
                       compareList.some(item => item.id === product.id)
-                      ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                      : 'bg-white text-indigo-600 hover:bg-indigo-50'
+                      ? 'bg-[#1aa39a] text-white hover:bg-indigo-50'
+                      : 'bg-white text-[#1aa39a] hover:bg-indigo-50'
                     }`}
                     disabled={compareList.length >= 3 && !compareList.some(item => item.id === product.id)}
                   >
@@ -373,7 +373,7 @@ const ProductShowcase = () => {
                 <div className="flex justify-between items-center mb-4">
                   <div>
                     <span className="text-gray-400 line-through mr-2">{product.price}</span>
-                    <span className="text-2xl font-bold text-indigo-600">{product.salePrice}</span>
+                    <span className="text-2xl font-bold text-[#1aa39a]">{product.salePrice}</span>
                   </div>
                   <div className="text-sm text-green-600 font-medium flex items-center">
                     <Truck size={16} className="mr-1" />
@@ -382,7 +382,7 @@ const ProductShowcase = () => {
                 </div>
                 
                 <button 
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-3 rounded-lg font-bold transition-colors flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white text-center py-3 rounded-lg font-bold transition-colors flex items-center justify-center"
                 >
                   <span>Add to Cart</span>
                 </button>
@@ -393,14 +393,14 @@ const ProductShowcase = () => {
         
         {/* Compare CTA */}
         {compareList.length > 0 && !compareMode && (
-          <div className="fixed bottom-6 right-6 bg-indigo-900 text-white p-4 rounded-xl shadow-2xl flex items-center space-x-4 animate-bounce-slow">
+          <div className="fixed bottom-6 right-6 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white p-4 rounded-xl shadow-2xl flex items-center space-x-4 animate-bounce-slow">
             <div>
               <p className="font-bold">Compare {compareList.length} Products</p>
               <p className="text-xs text-indigo-200">Click to see detailed comparison</p>
             </div>
             <button 
               onClick={() => setCompareMode(true)}
-              className="bg-white text-indigo-900 px-4 py-2 rounded-lg font-bold hover:bg-indigo-100 transition-colors"
+              className="bg-white text-[#1aa39a] px-4 py-2 rounded-lg font-bold hover:bg-indigo-100 transition-colors"
             >
               Compare Now
             </button>
@@ -441,7 +441,7 @@ const ProductShowcase = () => {
                     <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
                     
                     <div className="flex items-center mb-6">
-                      <div className="text-3xl font-bold text-indigo-600 mr-3">{selectedProduct.salePrice}</div>
+                      <div className="text-3xl font-bold text-[#1aa39a]mr-3">{selectedProduct.salePrice}</div>
                       <div className="text-gray-400 line-through">{selectedProduct.price}</div>
                       <div className="ml-4 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
                         20% OFF
