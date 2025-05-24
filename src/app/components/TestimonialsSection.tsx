@@ -241,11 +241,11 @@ const TestimonialsSection = () => {
         {/* Header with Animation */}
         <div className="text-center mb-16 relative">
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 opacity-10">
-            <Quote size={150} className="text-indigo-600" />
+            <Quote size={150} className="text-[#2a73af]" />
           </div>
           
-          <h2 className="text-4xl font-bold mb-4 text-indigo-900">What Our Customers Say</h2>
-          <p className="text-xl font-semibold text-indigo-600 mb-2">
+          <h2 className="text-4xl font-bold mb-4 text-[#1aa39a]">What Our Customers Say</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             &quot;Exceptional It&apos;s one of the best mattresses in India we&apos;ve tested in years!&quot;
           </p>
           <p className="text-lg text-gray-600">
@@ -275,8 +275,8 @@ const TestimonialsSection = () => {
                 onClick={() => setActiveTab(group.id)}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeTab === group.id
-                    ? 'bg-indigo-600 text-white shadow-md transform scale-105'
-                    : 'text-gray-600 hover:text-indigo-600'
+                    ? 'bg-[#1aa39a] text-white'
+                    : 'text-gray-600 hover:bg-indigo-50'
                 }`}
               >
                 {group.subtitle}
@@ -288,7 +288,7 @@ const TestimonialsSection = () => {
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Highlight Card */}
-          <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 text-white rounded-2xl shadow-xl overflow-hidden transform rotate-1 lg:rotate-2 hover:rotate-0 transition-all duration-300">
+          <div className="bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white rounded-2xl shadow-xl overflow-hidden transform rotate-1 lg:rotate-2 hover:rotate-0 transition-all duration-300">
             <div className="p-8 text-center">
               <div className="text-6xl font-bold mb-2">{activeGroup?.highlight}</div>
               <div className="text-sm font-medium text-indigo-200">{activeGroup?.title}</div>
@@ -378,7 +378,7 @@ const TestimonialsSection = () => {
                     onClick={() => setCurrentTestimonial(i)}
                     className={`w-2 h-2 rounded-full mx-1 transition-all ${
                       i === currentTestimonial 
-                        ? 'bg-indigo-600 w-6' 
+                        ? 'bg-[#1aa39a] w-6' 
                         : 'bg-gray-300 hover:bg-gray-400'
                     }`}
                   />
@@ -389,7 +389,7 @@ const TestimonialsSection = () => {
         </div>
         
         {/* Statistics Bar */}
-        <div className="bg-indigo-900 text-white rounded-2xl shadow-xl p-8 mb-16">
+        <div className="bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white rounded-2xl shadow-xl p-8 mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {statistics.map((stat, index) => (
               <div key={index} className="transform hover:scale-105 transition-transform">
@@ -401,7 +401,7 @@ const TestimonialsSection = () => {
         </div>
         
         {/* Video Testimonials */}
-        <div className="mb-16">
+        {/* <div className="mb-16">
           <h3 className="text-2xl font-bold text-center mb-8">Customer Stories</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -429,10 +429,10 @@ const TestimonialsSection = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
         
         {/* All Testimonials Section */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <button 
             onClick={() => setShowAllTestimonials(!showAllTestimonials)}
             className="inline-flex items-center px-6 py-3 rounded-full bg-indigo-100 text-indigo-600 font-medium hover:bg-indigo-200 transition-colors"
@@ -440,7 +440,7 @@ const TestimonialsSection = () => {
             {showAllTestimonials ? 'Show Less' : 'See All 400+ Reviews'}
             <ChevronRight size={16} className={`ml-1 transition-transform ${showAllTestimonials ? 'rotate-90' : ''}`} />
           </button>
-        </div>
+        </div> */}
         
         {showAllTestimonials && (
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
