@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sun, Activity, CheckCircle, BedDouble, ThermometerSnowflake, Weight, User } from 'lucide-react';
-
 const SleepQuizPreview = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [hoverOption, setHoverOption] = useState<number | null>(null);
