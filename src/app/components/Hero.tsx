@@ -97,7 +97,7 @@ const Hero = () => {
             {/* CTA buttons with enhanced design */}
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
               <Link 
-                href="/mattress-builder" 
+                href="" 
                 className="group flex items-center justify-center bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 shadow-md hover:shadow-xl hover:from-[#159089] hover:to-[#24659a] transform hover:translate-y-[-2px]"
               >
                 Design Your Perfect Mattress
@@ -105,7 +105,7 @@ const Hero = () => {
               </Link>
               
               <Link 
-                href="/sleep-quiz" 
+                href="" 
                 className="group flex items-center justify-center bg-white text-[#1aa39a] border border-[#1aa39a]/20 px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 hover:bg-[#1aa39a]/5 hover:border-[#1aa39a]/30 transform hover:translate-y-[-2px]"
               >
                 Find Your Sleep Profile

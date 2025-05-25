@@ -18,7 +18,7 @@ export default function Home() {
         <ProductShowcase />
         <TestimonialsSection />
         <SleepQuizPreview />
-        <SleepExpertise />
+        {/* <SleepExpertise /> */}
         <InfluencerCollab />
         {/* <ReferralProgram /> */}
         {/* <ContactCTA /> */}

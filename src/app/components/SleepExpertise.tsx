@@ -7,7 +7,7 @@ const SleepExpertise = () => {
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-3">Designed Purposefully for <span className="text-[#1aa39a]">India</span></h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-3">Designed Purposefully for <span className="text-[#1aa39a]">India</span></h2>
           <div className="w-24 h-1 bg-[#1aa39a] mx-auto mb-6"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Crafted from extensive research to deliver the perfect night&apos;s sleep for Indian sleepers

@@ -58,7 +58,7 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <div className="flex items-center lg:hidden space-x-3">
               <Link href="/cart" className="relative text-gray-700">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-full">
+                <div className="bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white p-2 rounded-full">
                   <ShoppingCart className="h-5 w-5" />
                   <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span>
                 </div>
@@ -92,14 +92,14 @@ const Navbar = () => {
               </Link>
               
               <div className="flex justify-between items-center border-t border-gray-100 mt-4 pt-4">
-                <Link href="/account" className="flex items-center text-gray-700 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
+                <Link href="" className="flex items-center text-gray-700 hover:text-[#1aa39a]" onClick={() => setIsMenuOpen(false)}>
                   <User className="h-5 w-5 mr-2" />
                   <span>My Account</span>
                 </Link>
-                <Link href="/wishlist" className="flex items-center text-gray-700 hover:text-purple-600 relative" onClick={() => setIsMenuOpen(false)}>
+                <Link href="" className="flex items-center text-gray-700 hover:text-[#1aa39a] relative" onClick={() => setIsMenuOpen(false)}>
                   <Heart className="h-5 w-5 mr-2" />
                   <span>Wishlist</span>
-                  <span className="ml-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">2</span>
+                  {/* <span className="ml-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">2</span> */}
                 </Link>
               </div>
             </div>
@@ -146,10 +146,10 @@ const MobileNavLink = ({ href, onClick, children, icon }: { href: string; onClic
   return (
     <Link 
       href={href} 
-      className="flex items-center space-x-2 px-2 py-3 hover:bg-purple-50 rounded-lg mb-1 text-gray-700 hover:text-purple-700 transition-colors" 
+      className="flex items-center space-x-2 px-2 py-3 hover:bg-indigo-50 rounded-lg mb-1 text-gray-700 group-hover:text-[#1aa39a] transition-colors" 
       onClick={onClick}
     >
-      {icon && <span className="text-purple-600">{icon}</span>}
+      {icon && <span className="text-[#1aa39a]">{icon}</span>}
       <span className="font-medium">{children}</span>
     </Link>
   );
