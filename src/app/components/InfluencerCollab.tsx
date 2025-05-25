@@ -57,7 +57,7 @@ const InfluencerCollab: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Decorative elements */}
       {/* <div className="absolute top-0 left-0 w-64 h-64 bg-[#2a73af] rounded-full -translate-x-1/2 -translate-y-1/2 opacity-70"></div> */}
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-r from-[#1aa39a] to-[#2a73af] rounded-full translate-x-1/3 translate-y-1/3"></div>
