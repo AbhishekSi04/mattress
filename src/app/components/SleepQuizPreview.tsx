@@ -31,9 +31,9 @@ const SleepQuizPreview = () => {
             <h3 className="text-2xl font-bold text-gray-800 mb-8">How do you prefer to sleep?</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { id: 1, label: "Side Sleeper", image: "/api/placeholder/140/90", description: "Pressure relief for shoulders & hips" },
-                { id: 2, label: "Back Sleeper", image: "/api/placeholder/140/90", description: "Spinal alignment & support" },
-                { id: 3, label: "Stomach Sleeper", image: "/api/placeholder/140/90", description: "Firm support to prevent sinking" }
+                { id: 1, label: "Side Sleeper", image: "/dummy.png  ", description: "Pressure relief for shoulders & hips" },
+                { id: 2, label: "Back Sleeper", image: "/dummy.png", description: "Spinal alignment & support" },
+                { id: 3, label: "Stomach Sleeper", image: "/dummy.png", description: "Firm support to prevent sinking" }
               ].map(option => (
                 <div 
                   key={option.id}

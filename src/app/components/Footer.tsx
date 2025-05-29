@@ -38,19 +38,19 @@ const Footer = () => {
   };
   
   const socialLinks = [
-    { name: 'Facebook', icon: '/icons/facebook.svg', href: 'https://facebook.com' },
-    { name: 'Instagram', icon: '/icons/instagram.svg', href: 'https://instagram.com' },
-    { name: 'Twitter', icon: '/icons/twitter.svg', href: 'https://twitter.com' },
-    { name: 'YouTube', icon: '/icons/youtube.svg', href: 'https://youtube.com' },
+    { name: 'Facebook', icon: '/dummy.png', href: 'https://facebook.com' },
+    { name: 'Instagram', icon: '/dummy.png', href: 'https://instagram.com' },
+    { name: 'Twitter', icon: '/dummy.png', href: 'https://twitter.com' },
+    { name: 'YouTube', icon: '/dummy.png', href: 'https://youtube.com' },
   ];
   
   const paymentMethods = [
-    { name: 'Visa', icon: '/icons/visa.svg' },
-    { name: 'Mastercard', icon: '/icons/mastercard.svg' },
-    { name: 'American Express', icon: '/icons/amex.svg' },
-    { name: 'PayPal', icon: '/icons/paypal.svg' },
-    { name: 'Google Pay', icon: '/icons/gpay.svg' },
-    { name: 'Apple Pay', icon: '/icons/applepay.svg' },
+    { name: 'Visa', icon: '/dummy.png' },
+    { name: 'Mastercard', icon: '/dummy.png' },
+    { name: 'American Express', icon: '/dummy.png' },
+    { name: 'PayPal', icon: '/dummy.png' },
+    { name: 'Google Pay', icon: '/dummy.png' },
+    { name: 'Apple Pay', icon: '/dummy.png' },
   ];
 
   return (
@@ -92,7 +92,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
               <Image 
-                src="/mattresswala-logo.png" 
+                src="/logo.png" 
                 alt="MattressWala Logo" 
                 width={180} 
                 height={50}
@@ -223,7 +223,7 @@ const Footer = () => {
           <div className="flex items-center">
             <p className="text-gray-400 text-sm mr-2">Made with <span className="text-[#1aa39a]">❤️</span> in India</p>
             <Image 
-              src="/icons/india-flag.svg" 
+              src="/globe.svg" 
               alt="Indian Flag" 
               width={20} 
               height={15} 
