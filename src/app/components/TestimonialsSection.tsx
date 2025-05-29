@@ -27,7 +27,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'April 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         },
         {
           id: 2,
@@ -37,7 +37,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'March 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         },
         {
           id: 3,
@@ -47,7 +47,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'April 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         }
       ]
     },
@@ -65,7 +65,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'February 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         },
         {
           id: 5,
@@ -75,7 +75,7 @@ const TestimonialsSection = () => {
           rating: 5, 
           date: 'March 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         },
         {
           id: 6,
@@ -85,7 +85,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'January 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         }
       ]
     },
@@ -103,7 +103,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'March 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         },
         {
           id: 8,
@@ -113,7 +113,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'February 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         },
         {
           id: 9,
@@ -123,7 +123,7 @@ const TestimonialsSection = () => {
           rating: 5,
           date: 'April 2025',
           verified: true,
-          image: '/api/placeholder/80/80'
+          image: '/dummy.png'
         }
       ]
     }
@@ -159,21 +159,21 @@ const TestimonialsSection = () => {
       title: 'Best Mattress',
       organization: 'CHOICE®',
       year: '2024',
-      logo: '/api/placeholder/120/60'
+      logo: '/dummy.png'
     },
     {
       id: 2,
       title: 'Innovation Award',
       organization: 'Sleep Technology',
       year: '2024',
-      logo: '/api/placeholder/120/60'
+      logo: '/dummy.png'
     },
     {
       id: 3,
       title: 'Customer Satisfaction',
       organization: 'India Retail Federation',
       year: '2025',
-      logo: '/api/placeholder/120/60'
+      logo: '/dummy.png'
     }
   ];
 
