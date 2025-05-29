@@ -37,7 +37,7 @@ const ProductShowcase = () => {
       name: 'Original',
       category: 'memory-foam',
       description: 'Our award-winning mattress with perfect balance of comfort and support',
-      image: '/api/placeholder/400/320',
+      image: '/dummy.png',
       price: '₹24,999',
       salePrice: '₹19,999',
       rating: 4.8,
@@ -55,7 +55,7 @@ const ProductShowcase = () => {
       name: 'Hybrid',
       category: 'hybrid',
       description: 'The perfect combination of memory foam comfort and spring support',
-      image: '/api/placeholder/400/320',
+      image: '/dummy.png',
       price: '₹34,999',
       salePrice: '₹27,999',
       rating: 4.7,
@@ -73,7 +73,7 @@ const ProductShowcase = () => {
       name: 'Luxury',
       category: 'luxury',
       description: 'Our premium mattress with advanced cooling and ultimate comfort',
-      image: '/api/placeholder/400/320',
+      image: '/dummy.png',
       price: '₹44,999',
       salePrice: '₹36,999',
       rating: 4.9,
@@ -91,7 +91,7 @@ const ProductShowcase = () => {
       name: 'Orthopaedic Mattress',
       category: 'specialized',
       description: 'Specially designed to alleviate back pain and provide proper spinal alignment',
-      image: '/api/placeholder/400/320',
+      image: '/dummy.png',
       price: '₹39,999',
       salePrice: '₹32,999',
       rating: 4.8,
@@ -113,7 +113,7 @@ const ProductShowcase = () => {
       rating: 5,
       text: "After struggling with back pain for years, the Original Mattress has been a game-changer. I wake up refreshed with no pain!",
       date: "April 2025",
-      image: "/api/placeholder/50/50"
+      image: '/dummy.png'
     },
     {
       id: 2,
@@ -121,7 +121,7 @@ const ProductShowcase = () => {
       rating: 5,
       text: "The Hybrid Mattress offers the perfect balance between support and comfort. It keeps cool even during Mumbai summers!",
       date: "March 2025",
-      image: "/api/placeholder/50/50"
+      image: "/dummy.png"
     },
     {
       id: 3,
@@ -129,7 +129,7 @@ const ProductShowcase = () => {
       rating: 4,
       text: "Luxury Mattress is worth every rupee. The premium feel and cooling properties make it perfect for year-round comfort.",
       date: "April 2025",
-      image: "/api/placeholder/50/50"
+      image: "/dummy.png"
     }
   ];
 

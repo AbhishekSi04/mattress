@@ -19,7 +19,7 @@ const SleepExpertise = () => {
             <div className="bg-[#1aa39a] absolute -top-4 -left-4 w-24 h-24 rounded-full opacity-20"></div>
             <div className="relative overflow-hidden rounded-2xl shadow-xl">
               <Image 
-                src="/api/placeholder/600/400" 
+                src="/dummy.png" 
                 alt="Sleep research and development" 
                 width={600}
                 height={400}

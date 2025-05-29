@@ -29,7 +29,7 @@ const Hero = () => {
         <div className="flex justify-center mb-8">
           <div className="relative w-64 h-auto">
             <Image 
-              src="/logo.jpg"
+              src="/logo.png"
               alt="MattressWala Logo" 
               width={250} 
               height={100}

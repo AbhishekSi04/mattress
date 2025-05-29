@@ -18,7 +18,7 @@ const InfluencerCollab: React.FC = () => {
     {
       id: 1,
       name: "Sleep Expert Alex",
-      image: "/images/influencer1.jpg",
+      image: "/dummy.png",
       role: "Sleep Scientist",
       followers: "1.2M",
       quote: "This mattress revolutionized my sleep quality completely.",
@@ -28,7 +28,7 @@ const InfluencerCollab: React.FC = () => {
     {
       id: 2,
       name: "Wellness Guru Maya",
-      image: "/images/influencer2.jpg",
+      image: "/dummy.png",
       role: "Wellness Coach",
       followers: "850K",
       quote: "The perfect balance of comfort and support for optimal rest.",
@@ -37,7 +37,7 @@ const InfluencerCollab: React.FC = () => {
     {
       id: 3,
       name: "Home Design Pro Jordan",
-      image: "/images/influencer3.jpg",
+      image: "/dummy.png",
       role: "Interior Designer",
       followers: "1.5M",
       quote: "A beautiful addition to any bedroom that delivers on comfort.",
@@ -47,7 +47,7 @@ const InfluencerCollab: React.FC = () => {
     {
       id: 4,
       name: "Health Coach Taylor",
-      image: "/images/influencer4.jpg",
+      image: "/dummy.png",
       role: "Health & Fitness Expert",
       followers: "920K",
       quote: "Improved sleep means better recovery - this mattress delivers both.",
@@ -82,9 +82,9 @@ const InfluencerCollab: React.FC = () => {
               className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group"
             >
               <div className="aspect-square relative overflow-hidden bg-white">
-                {/* In a real app, use next/image with proper dimensions */}
+                {/* Using the influencer.image path which now points to dummy.png */}
                 <img 
-                  src={`/api/placeholder/400/400`} 
+                  src={influencer.image} 
                   alt={influencer.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
