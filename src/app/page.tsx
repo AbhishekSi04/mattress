@@ -1,7 +1,7 @@
 import React from 'react';
 import Hero from './components/Hero';
 import ProductShowcase from './components/ProductShowcase';
-import SleepQuizPreview from './components/SleepQuizPreview';
+import MattressForm from './components/MattressForm';
 import TestimonialsSection from './components/TestimonialsSection';
 import SleepExpertise from './components/SleepExpertise';
 import InfluencerCollab from './components/InfluencerCollab';
@@ -17,7 +17,7 @@ export default function Home() {
         <Hero />
         <ProductShowcase />
         <TestimonialsSection />
-        <SleepQuizPreview />
+        <MattressForm />
          <SleepExpertise />
         <InfluencerCollab />
          <ReferralProgram />
