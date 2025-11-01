@@ -37,13 +37,6 @@ const Footer = () => {
     ]
   };
   
-  const socialLinks = [
-    { name: 'Facebook', icon: '/dummy.png', href: 'https://facebook.com' },
-    { name: 'Instagram', icon: '/dummy.png', href: 'https://instagram.com' },
-    { name: 'Twitter', icon: '/dummy.png', href: 'https://twitter.com' },
-    { name: 'YouTube', icon: '/dummy.png', href: 'https://youtube.com' },
-  ];
-  
   const paymentMethods = [
     { name: 'Visa', icon: '/dummy.png' },
     { name: 'Mastercard', icon: '/dummy.png' },

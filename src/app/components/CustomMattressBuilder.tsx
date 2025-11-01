@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react'
+import Image from 'next/image'
 
 type Layer = {
   id: number
@@ -209,7 +210,12 @@ const CustomMattressBuilder: React.FC = () => {
                     >
                       <div className="flex items-center space-x-4 flex-1">
                         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                          <img src={layer.image} alt={layer.name} className="w-8 h-8" />
+                          <Image
+                            src={layer.image || '/assets/layer-placeholder.svg'}
+                            alt={layer.name}
+                            width={32}
+                            height={32}
+                          />
                         </div>
                         <div className="flex-1">
                           <div className="font-bold text-gray-800 text-lg">{layer.name}</div>

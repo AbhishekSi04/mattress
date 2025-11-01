@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Star, Award, Truck, Clock, CheckCircle,} from 'lucide-react';
 
 // Define interfaces for type safety
@@ -154,7 +155,7 @@ const ProductShowcase = () => {
       nextReview();
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentReview]);
+  }, [currentReview, nextReview]);
 
   const renderStars = (rating: number) => {
     return Array(5).fill(0).map((_, i) => (
@@ -249,9 +250,11 @@ const ProductShowcase = () => {
               <div className="hidden md:block"></div>
               {compareList.map(product => (
                 <div key={product.id} className="text-center">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={128}
+                    height={128}
                     className="w-32 h-32 object-cover mx-auto mb-2"
                   />
                   <h4 className="font-bold text-lg">{product.name}</h4>
@@ -317,9 +320,11 @@ const ProductShowcase = () => {
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="relative overflow-hidden group">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={400}
+                  height={256}
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-md">
@@ -423,9 +428,11 @@ const ProductShowcase = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   <div className="p-8">
-                    <img 
-                      src={selectedProduct.image} 
-                      alt={selectedProduct.name} 
+                    <Image
+                      src={selectedProduct.image}
+                      alt={selectedProduct.name}
+                      width={400}
+                      height={256}
                       className="w-full h-64 object-cover rounded-lg"
                     />
                     <div className="flex justify-center mt-4">

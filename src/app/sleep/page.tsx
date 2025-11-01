@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sun, Activity, CheckCircle, BedDouble, ThermometerSnowflake, Weight, User } from 'lucide-react';
 const SleepQuizPreview = () => {
@@ -46,7 +47,7 @@ const SleepQuizPreview = () => {
                 >
                   <div className="bg-gradient-to-br from-[#1aa39a]/10 to-[#2a73af]/10 p-6">
                     <div className="h-32 flex items-center justify-center mb-4">
-                      <img src={option.image} alt={option.label} className="rounded-md" />
+                      <Image src={option.image} alt={option.label} width={140} height={90} className="rounded-md" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>

@@ -4,7 +4,6 @@ import ProductShowcase from './components/ProductShowcase';
 import MattressForm from './components/MattressForm';
 import TestimonialsSection from './components/TestimonialsSection';
 import SleepExpertise from './components/SleepExpertise';
-import InfluencerCollab from './components/InfluencerCollab';
 import ReferralProgram from './components/ReferralProgram';
 // import ContactCTA from './components/ContactCTA';
 import Footer from './components/Footer';

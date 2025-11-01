@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Star, CheckCircle, Quote, ChevronLeft, ChevronRight, MessageCircle, Award, ThumbsUp } from 'lucide-react';
 
 const TestimonialsSection = () => {
@@ -210,7 +211,7 @@ const TestimonialsSection = () => {
     }, 6000);
     
     return () => clearInterval(interval);
-  }, [currentTestimonial, isVideoPlaying, activeGroup]);
+  }, [currentTestimonial, isVideoPlaying, activeGroup, nextTestimonial]);
 
   // const toggleVideoPlay = () => {
   //   if (videoRef.current) {
@@ -255,7 +256,7 @@ const TestimonialsSection = () => {
           <div className="flex justify-center items-center mt-8 flex-wrap gap-6">
             {awards.map(award => (
               <div key={award.id} className="flex items-center bg-white px-4 py-2 rounded-lg shadow-md">
-                <img src={award.logo} alt={award.organization} className="h-8 mr-3" />
+                <Image src={award.logo} alt={award.organization} width={32} height={32} className="h-8 mr-3" />
                 <div className="text-left">
                   <p className="font-bold text-sm">{award.title}</p>
                   <p className="text-xs text-gray-500">{award.organization} {award.year}</p>
@@ -334,9 +335,11 @@ const TestimonialsSection = () => {
                   {activeGroup?.testimonials.map((testimonial,) => (
                     <div key={testimonial.id} className="w-full flex-shrink-0 p-8">
                       <div className="flex items-center mb-4">
-                        <img 
-                          src={testimonial.image} 
-                          alt={testimonial.name} 
+                        <Image
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          width={64}
+                          height={64}
                           className="w-16 h-16 rounded-full object-cover border-2 border-indigo-100 mr-4"
                         />
                         <div>
