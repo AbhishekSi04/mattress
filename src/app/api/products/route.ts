@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
+import type { Session } from 'next-auth';
 import { authOptions } from '../../../lib/auth';
-import { getAllProducts, createProduct } from '../../../models/Product';
+import { getAllProducts, createProduct, updateProduct, deleteProduct } from '../../../models/Product';
 import { connectToDatabase } from '../../../lib/mongodb';
-import { GridFSBucket } from 'mongodb';
+import { GridFSBucket, ObjectId } from 'mongodb';
 
 export async function GET() {
   try {
@@ -19,8 +20,8 @@ export async function POST(request: NextRequest) {
   try {
     console.log('Starting product creation...');
 
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'admin') {
+    const session = await getServerSession(authOptions) as Session | null;
+    if (!session || !session.user || session.user.role !== 'admin') {
       console.log('Unauthorized access attempt');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -54,20 +55,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid input data' }, { status: 400 });
     }
 
-    // Check total file size (Vercel limit is ~5MB)
+    // Check total file size (increased limit for multiple images)
     let totalSize = 0;
     for (const file of images) {
       if (file) totalSize += file.size;
     }
 
-    if (totalSize > 4 * 1024 * 1024) { // 4MB limit to be safe
+    if (totalSize > 20 * 1024 * 1024) { // 20MB limit for multiple images
       console.log(`Total file size too large: ${totalSize} bytes`);
-      return NextResponse.json({ error: 'Total file size exceeds 4MB limit. Please reduce image sizes or upload fewer images.' }, { status: 413 });
+      return NextResponse.json({ error: 'Total file size exceeds 20MB limit. Please reduce image sizes or upload fewer images.' }, { status: 413 });
     }
 
     console.log('Uploading images to GridFS...');
     // Upload images to GridFS
-    const imageIds: any[] = [];
+    const imageIds: ObjectId[] = [];
 
     for (const file of images) {
       if (!file) continue;
@@ -78,13 +79,13 @@ export async function POST(request: NextRequest) {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
       if (!allowedTypes.includes(file.type)) {
         console.log(`Invalid file type: ${file.type}`);
-        return NextResponse.json({ error: 'Invalid file type' }, { status: 400 });
+        return NextResponse.json({ error: 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.' }, { status: 400 });
       }
 
-      // Validate file size (max 2MB per file)
-      if (file.size > 2 * 1024 * 1024) {
+      // Validate file size (max 5MB per file)
+      if (file.size > 5 * 1024 * 1024) {
         console.log(`File too large: ${file.name} (${file.size} bytes)`);
-        return NextResponse.json({ error: `File ${file.name} is too large. Maximum size is 2MB per file.` }, { status: 413 });
+        return NextResponse.json({ error: `File ${file.name} is too large. Maximum size is 5MB per file.` }, { status: 413 });
       }
 
       try {
@@ -133,5 +134,56 @@ export async function POST(request: NextRequest) {
       error: 'Failed to create product',
       details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
     }, { status: 500 });
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions) as Session | null;
+    if (!session || !session.user || session.user.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id, ...updates } = await request.json();
+
+    if (!id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+    }
+
+    const updatedProduct = await updateProduct(id, updates);
+    if (!updatedProduct) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedProduct);
+  } catch (error) {
+    console.error('Error updating product:', error);
+    return NextResponse.json({ error: 'Failed to update product' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions) as Session | null;
+    if (!session || !session.user || session.user.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+    }
+
+    const deleted = await deleteProduct(id);
+    if (!deleted) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });
   }
 }

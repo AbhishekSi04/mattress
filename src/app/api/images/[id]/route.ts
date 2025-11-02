@@ -23,17 +23,22 @@ export async function GET(
     const file = files[0];
     const contentType = file.contentType || 'application/octet-stream';
 
-    // Stream the file
-    const response = new Response(downloadStream as any, {
+    // Convert stream to buffer
+    const chunks: Buffer[] = [];
+    const buffer = await new Promise<Buffer>((resolve, reject) => {
+      downloadStream.on('data', (chunk) => chunks.push(chunk));
+      downloadStream.on('end', () => resolve(Buffer.concat(chunks)));
+      downloadStream.on('error', reject);
+    });
+
+    return new Response(new Uint8Array(buffer), {
       status: 200,
       headers: {
         'Content-Type': contentType,
-        'Content-Length': file.length.toString(),
+        'Content-Length': buffer.length.toString(),
         'Cache-Control': 'public, max-age=31536000', // Cache for 1 year
       },
     });
-
-    return response;
   } catch (error) {
     console.error('Error streaming image:', error);
     return NextResponse.json({ error: 'Failed to stream image' }, { status: 500 });
