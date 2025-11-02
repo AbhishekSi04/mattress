@@ -64,7 +64,7 @@ export default function SignIn() {
                     name="email"
                     type="email"
                     required
-                    className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
+                    className="text-black w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
                     placeholder="admin@mattresswala.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -87,7 +87,7 @@ export default function SignIn() {
                     name="password"
                     type="password"
                     required
-                    className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
+                    className="text-blackw-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
