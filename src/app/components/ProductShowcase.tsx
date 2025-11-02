@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Star, Award, Truck, Clock, CheckCircle,} from 'lucide-react';
+import { useCart } from '../../lib/cart';
+import QuantitySelector from './QuantitySelector';
+import ProductCarousel from './ProductCarousel';
 
 // Define interfaces for type safety
 interface ProductDetails {
@@ -17,6 +20,7 @@ interface Product {
   category: string;
   description: string;
   image: string;
+  images: string[];
   price: string;
   salePrice: string;
   rating: number;
@@ -26,11 +30,14 @@ interface Product {
 }
 
 const ProductShowcase = () => {
+  const { addItem } = useCart();
   const [activeTab, setActiveTab] = useState('all');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [compareMode, setCompareMode] = useState(false);
   const [compareList, setCompareList] = useState<Product[]>([]);
   const [currentReview, setCurrentReview] = useState(0);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [messages, setMessages] = useState<Record<string, string>>({});
 
   const products = [
     {
@@ -38,7 +45,8 @@ const ProductShowcase = () => {
       name: 'Original',
       category: 'memory-foam',
       description: 'Our award-winning mattress with perfect balance of comfort and support',
-      image: '/dummy.png',
+      image: 'https://via.placeholder.com/400x256/1aa39a/ffffff?text=Original+Mattress',
+      images: ['https://via.placeholder.com/400x256/1aa39a/ffffff?text=Original+1', 'https://via.placeholder.com/400x256/22a8a2/ffffff?text=Original+2'],
       price: '₹24,999',
       salePrice: '₹19,999',
       rating: 4.8,
@@ -56,7 +64,8 @@ const ProductShowcase = () => {
       name: 'Hybrid',
       category: 'hybrid',
       description: 'The perfect combination of memory foam comfort and spring support',
-      image: '/hybrif.png',
+      image: 'https://via.placeholder.com/400x256/2a73af/ffffff?text=Hybrid+Mattress',
+      images: ['https://via.placeholder.com/400x256/2a73af/ffffff?text=Hybrid+1', 'https://via.placeholder.com/400x256/24659a/ffffff?text=Hybrid+2'],
       price: '₹34,999',
       salePrice: '₹27,999',
       rating: 4.7,
@@ -74,7 +83,8 @@ const ProductShowcase = () => {
       name: 'Luxury',
       category: 'luxury',
       description: 'Our premium mattress with advanced cooling and ultimate comfort',
-      image: '/luxury.png',
+      image: 'https://via.placeholder.com/400x256/159089/ffffff?text=Luxury+Mattress',
+      images: ['https://via.placeholder.com/400x256/159089/ffffff?text=Luxury+1', 'https://via.placeholder.com/400x256/24659a/ffffff?text=Luxury+2'],
       price: '₹44,999',
       salePrice: '₹36,999',
       rating: 4.9,
@@ -92,7 +102,8 @@ const ProductShowcase = () => {
       name: 'Orthopaedic Mattress',
       category: 'specialized',
       description: 'Specially designed to alleviate back pain and provide proper spinal alignment',
-      image: '/orthopaedic.png',
+      image: 'https://via.placeholder.com/400x256/1aa39a/ffffff?text=Orthopaedic+Mattress',
+      images: ['https://via.placeholder.com/400x256/1aa39a/ffffff?text=Ortho+1', 'https://via.placeholder.com/400x256/22a8a2/ffffff?text=Ortho+2'],
       price: '₹39,999',
       salePrice: '₹32,999',
       rating: 4.8,
@@ -133,6 +144,23 @@ const ProductShowcase = () => {
       image: "/dummy.png"
     }
   ];
+
+  const handleQuantityChange = (productId: string, qty: number) => {
+    setQuantities(prev => ({ ...prev, [productId]: qty }));
+  };
+
+  const handleAddToCart = (product: Product) => {
+    const qty = quantities[product.id] || 1;
+    addItem(product.id, qty, {
+      title: product.name,
+      price: parseFloat(product.salePrice.replace('₹', '').replace(',', '')),
+      imageUrls: [product.image],
+    });
+    setMessages(prev => ({ ...prev, [product.id]: `${qty} ${product.name} added to cart!` }));
+    setTimeout(() => {
+      setMessages(prev => ({ ...prev, [product.id]: '' }));
+    }, 3000);
+  };
 
   const toggleCompare = (product: Product) => {
     if (compareList.some(item => item.id === product.id)) {
@@ -386,11 +414,26 @@ const ProductShowcase = () => {
                   </div>
                 </div>
                 
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                  <QuantitySelector
+                    value={quantities[product.id] || 1}
+                    onChange={(qty) => handleQuantityChange(product.id, qty)}
+                    min={1}
+                    max={10}
+                  />
+                </div>
+                
                 <button 
-                  className="w-full mt-auto bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white text-center py-3 rounded-lg font-bold transition-colors flex items-center justify-center"
+                  onClick={() => handleAddToCart(product)}
+                  className="w-full mt-auto bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white text-center py-3 rounded-lg font-bold transition-colors flex items-center justify-center mb-2"
                 >
                   <span>Add to Cart</span>
                 </button>
+                
+                {messages[product.id] && (
+                  <p className="text-green-600 text-center text-sm">{messages[product.id]}</p>
+                )}
               </div>
             </div>
           ))}
@@ -428,13 +471,7 @@ const ProductShowcase = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   <div className="p-8">
-                    <Image
-                      src={selectedProduct.image}
-                      alt={selectedProduct.name}
-                      width={400}
-                      height={256}
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
+                    <ProductCarousel images={selectedProduct.images} alt={selectedProduct.name} />
                     <div className="flex justify-center mt-4">
                       <div className="flex items-center">
                         {renderStars(selectedProduct.rating)}

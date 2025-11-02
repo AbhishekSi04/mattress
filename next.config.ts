@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['mongodb'],
   },
+  images: {
+    domains: ['via.placeholder.com'],
+  },
 };
 
 export default nextConfig;
