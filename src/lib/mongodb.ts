@@ -20,7 +20,8 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
     connectTimeoutMS: 10000,
     maxPoolSize: 10,
     tls: true,
-    tlsAllowInvalidCertificates: true, // For development only
+    // Remove tlsAllowInvalidCertificates for production
+    ...(process.env.NODE_ENV === 'development' && { tlsAllowInvalidCertificates: true }),
   });
 
   const db = client.db(MONGODB_DB);
