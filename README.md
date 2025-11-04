@@ -73,3 +73,5 @@ Images are stored in MongoDB using GridFS with the bucket name `productImages`. 
 - `POST /api/products` - Create new product (admin only)
 - `GET /api/images/[id]` - Stream image by ID
 - `POST /api/auth/[...nextauth]` - NextAuth authentication
+
+.
