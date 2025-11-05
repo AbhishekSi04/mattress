@@ -435,15 +435,15 @@ export default function ProductsPage() {
               <div className={`flex gap-6 overflow-x-auto pb-4 ${styles.horizontalScroll}`} style={{ scrollBehavior: 'smooth' }}>
                 {filteredProducts.map((product, index) => (
                   <div key={`horizontal-${product._id}`} className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    {/* Product Image */}
-                    <div className="h-48 bg-gray-50">
+                    {/* Product Image with Carousel */}
+                    <div className="h-48 bg-gray-50 relative">
                       {product.images.length > 0 ? (
                         <div className="relative w-full h-full">
                           <ProductCarousel
                             id={`horizontal-carousel-${product._id}`}
                             images={product.images.map(id => `/api/images/${id}`)}
                             alt={product.name}
-                            showNav={false}
+                            showNav={true}
                           />
                         </div>
                       ) : (
