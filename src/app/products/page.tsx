@@ -6,6 +6,8 @@ import { useCart } from '../../lib/cart';
 import QuantitySelector from '../components/QuantitySelector';
 import styles from './products.module.css';
 import { Heart, ShoppingCart, Search, Filter } from 'lucide-react';
+import ShoppingCartModal from '../components/ShoppingCartModal';
+import QuoteRequestModal from '../components/QuoteRequestModal';
 
 interface Product {
   _id: string;
@@ -18,13 +20,16 @@ interface Product {
 }
 
 export default function ProductsPage() {
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [messages, setMessages] = useState<Record<string, string>>({});
   const [searchText, setSearchText] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
+  const [activeCollectionProduct, setActiveCollectionProduct] = useState(0);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -92,16 +97,24 @@ export default function ProductsPage() {
               </div>
             </div>
             
-            <div className={styles.cartButton}>
+            <button 
+              onClick={() => setIsCartModalOpen(true)}
+              className={styles.cartButton}
+            >
               <ShoppingCart className="w-5 h-5" />
               <span>My Cart</span>
-            </div>
+              {items.length > 0 && (
+                <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2">
+                  {items.reduce((sum, item) => sum + item.quantity, 0)}
+                </span>
+              )}
+            </button>
           </div>
           
           {/* Search and Filter Bar */}
           <div className="flex gap-4 pb-6">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search products..."
@@ -290,14 +303,18 @@ export default function ProductsPage() {
             {/* Left Sidebar Navigation */}
             <div className={styles.collectionSidebar}>
               {filteredProducts.slice(0, 4).map((product, index) => (
-                <div key={product._id} className={`${styles.sidebarItem} ${index === 0 ? styles.sidebarItemActive : ''}`}>
+                <button 
+                  key={product._id} 
+                  onClick={() => setActiveCollectionProduct(index)}
+                  className={`${styles.sidebarItem} ${index === activeCollectionProduct ? styles.sidebarItemActive : ''}`}
+                >
                   <span className={styles.sidebarLabel}>{product.name}.</span>
                   <span className={styles.sidebarSubLabel}>Mattress</span>
                   <span className={styles.sidebarPrice}>
                     ₹{Math.round(product.price * 0.7).toLocaleString()} 
                     <span className={styles.sidebarOriginalPrice}>₹{Math.round(product.price).toLocaleString()}</span>
                   </span>
-                </div>
+                </button>
               ))}
               
               {/* Add placeholder items if we have fewer than 4 products */}
@@ -312,7 +329,7 @@ export default function ProductsPage() {
             
             {/* Main Product Display */}
             <div className={styles.collectionMain}>
-              {filteredProducts.slice(0, 1).map((product) => (
+              {filteredProducts.slice(activeCollectionProduct, activeCollectionProduct + 1).map((product) => (
                 <div key={`collection-${product._id}`} className={styles.collectionCard}>
                   {/* Left: Image */}
                   <div className={styles.collectionImageSection}>
@@ -410,6 +427,98 @@ export default function ProductsPage() {
               ))}
             </div>
           </div>
+          
+          {/* Horizontal Product Scroll Section */}
+          {filteredProducts.length > 1 && (
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">All Products in Collection</h3>
+              <div className={`flex gap-6 overflow-x-auto pb-4 ${styles.horizontalScroll}`} style={{ scrollBehavior: 'smooth' }}>
+                {filteredProducts.map((product, index) => (
+                  <div key={`horizontal-${product._id}`} className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    {/* Product Image */}
+                    <div className="h-48 bg-gray-50">
+                      {product.images.length > 0 ? (
+                        <div className="relative w-full h-full">
+                          <ProductCarousel
+                            id={`horizontal-carousel-${product._id}`}
+                            images={product.images.map(id => `/api/images/${id}`)}
+                            alt={product.name}
+                            showNav={false}
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <div className="text-center">
+                            <svg className="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <p className="text-sm">No Image</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Product Details */}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <h4 className="text-lg font-semibold text-gray-900">{product.name}</h4>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-gray-900">₹{Math.round(product.price * 0.7).toLocaleString()}</div>
+                          <div className="text-sm text-gray-500 line-through">₹{Math.round(product.price).toLocaleString()}</div>
+                        </div>
+                      </div>
+                      
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                        Premium comfort mattress designed for ultimate sleep experience with advanced materials.
+                      </p>
+                      
+                      {/* Sizes */}
+                      <div className="mb-4">
+                        <p className="text-xs text-gray-500 mb-2">Available Sizes</p>
+                        <div className="flex gap-2 flex-wrap">
+                          {product.sizes.slice(0, 3).map((size) => (
+                            <span key={size} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                              {size}
+                            </span>
+                          ))}
+                          {product.sizes.length > 3 && (
+                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                              +{product.sizes.length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex gap-2">
+                        <div className="flex-1">
+                          <QuantitySelector
+                            value={quantities[product._id] || 1}
+                            onChange={(qty) => handleQuantityChange(product._id, qty)}
+                            min={1}
+                            max={10}
+                          />
+                        </div>
+                        <button
+                          onClick={() => handleAddToCart(product)}
+                          className="flex-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                      
+                      {/* Success Message */}
+                      {messages[product._id] && (
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-2 mt-3">
+                          <p className="text-green-800 text-center text-xs">{messages[product._id]}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Lifestyle Inspiration Section */}
@@ -473,7 +582,12 @@ export default function ProductsPage() {
               <div className={styles.lifestyleOverlay}>
                 <div className={styles.lifestyleContent}>
                   <h3 className={styles.lifestyleTitle}>Ready to Transform Your Sleep?</h3>
-                  <button className={styles.requestQuoteButton}>Request a Quote</button>
+                  <button 
+                    onClick={() => setIsQuoteModalOpen(true)}
+                    className={styles.requestQuoteButton}
+                  >
+                    Request a Quote
+                  </button>
                 </div>
               </div>
             </div>
@@ -505,6 +619,18 @@ export default function ProductsPage() {
           </div>
         )}
       </div>
+
+      {/* Shopping Cart Modal */}
+      <ShoppingCartModal 
+        isOpen={isCartModalOpen}
+        onClose={() => setIsCartModalOpen(false)}
+      />
+
+      {/* Quote Request Modal */}
+      <QuoteRequestModal 
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+      />
     </div>
   );
 }

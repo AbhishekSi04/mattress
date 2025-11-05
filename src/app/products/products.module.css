@@ -35,6 +35,7 @@
   background: #00b388;
   color: white;
   padding: 12px 20px;
+  border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
@@ -53,6 +54,7 @@
   font-size: 16px;
   outline: none;
   transition: border-color 0.2s ease;
+  color: black;
 }
 
 .searchInput:focus {
@@ -337,10 +339,18 @@
 }
 
 .sidebarItem {
-  padding: 16px;
-  border-bottom: 1px solid #e9ecef;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
 }.sidebarItemActive {
   background: rgba(0, 179, 136, 0.1);
   border-left: 4px solid #00b388;
@@ -729,6 +739,38 @@
 }
 
 .requestQuoteButton:hover {
-  background: #f8f9fa;
+  background: #0f766e;
   transform: translateY(-1px);
+}
+
+/* Horizontal scroll styling */
+.horizontalScroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+.horizontalScroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontalScroll::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 3px;
+}
+
+.horizontalScroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.horizontalScroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
