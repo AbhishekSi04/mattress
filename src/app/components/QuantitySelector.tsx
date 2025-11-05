@@ -66,12 +66,12 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   };
 
   return (
-    <div className="flex items-center border border-gray-300 rounded-md">
+    <div className="flex items-center">
       <button
         type="button"
         onClick={handleDecrease}
         disabled={value <= min}
-        className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         aria-label="Decrease quantity"
       >
         -
@@ -82,7 +82,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         onChange={handleInputChange}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
-        className="w-16 text-center border-0 focus:ring-0 focus:outline-none text-black"
+        className="w-12 h-8 mx-2 text-center border border-gray-300 rounded-md focus:ring-1 focus:ring-teal-500 focus:border-teal-500 text-black text-sm"
         min={min}
         max={max}
         aria-label="Quantity"
@@ -91,7 +91,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         type="button"
         onClick={handleIncrease}
         disabled={value >= max}
-        className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         aria-label="Increase quantity"
       >
         +
