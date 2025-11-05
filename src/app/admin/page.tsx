@@ -38,6 +38,7 @@ export default function AdminPage() {
     }
   }, [session, status, router]);
 
+
   const fetchProducts = async () => {
     try {
       const response = await fetch('/api/products');
