@@ -194,22 +194,13 @@ export default function ProductsPage() {
         </div>
 
         {/* Best Sellers Section */}
-        <section className="mb-20 relative">
-          {/* Background Decorative Elements */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-50 to-blue-50 rounded-full opacity-60 -translate-y-8 translate-x-8"></div>
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-green-50 to-teal-50 rounded-full opacity-50 translate-y-8 -translate-x-8"></div>
-            <div className="absolute top-1/2 left-1/2 w-6 h-6 bg-teal-300 rounded-full opacity-30 transform -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute top-20 left-1/4 w-4 h-4 bg-blue-300 rounded-full opacity-40"></div>
-            <div className="absolute bottom-20 right-1/4 w-5 h-5 bg-green-300 rounded-full opacity-35"></div>
-          </div>
-
-          <div className="mb-12 relative z-10">
+        <section className="mb-20">
+          <div className="mb-12">
             <h2 className={styles.sectionTitle}>BEST SELLERS</h2>
             <p className={styles.sectionSubtitle}>Most popular choices this month</p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {filteredProducts.slice(0, 2).map((product) => (
               <div key={product._id} className={styles.bestSellerCard}>
                 {/* Image Section */}
@@ -302,27 +293,13 @@ export default function ProductsPage() {
         </section>
 
         {/* Our Collection Section */}
-        <section className="mb-20 relative">
-          {/* Background Decorative Shapes */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-10 left-10 w-20 h-20 bg-teal-100 rounded-full opacity-20"></div>
-            <div className="absolute top-32 right-20 w-16 h-16 bg-blue-100 rounded-full opacity-30"></div>
-            <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-green-100 rounded-full opacity-25"></div>
-            <div className="absolute top-1/2 right-10 w-12 h-12 bg-purple-100 rounded-full opacity-20"></div>
-            <div className="absolute bottom-32 right-1/3 w-18 h-18 bg-pink-100 rounded-full opacity-25"></div>
-            
-            {/* Geometric shapes */}
-            <div className="absolute top-20 right-1/4 w-8 h-8 bg-teal-200 transform rotate-45 opacity-20"></div>
-            <div className="absolute bottom-40 left-20 w-6 h-6 bg-blue-200 transform rotate-12 opacity-30"></div>
-            <div className="absolute top-1/3 left-1/3 w-10 h-10 bg-green-200 transform rotate-45 opacity-15"></div>
-          </div>
-
-          <div className="mb-12 relative z-10">
+        <section className="mb-20">
+          <div className="mb-12">
             <h2 className={styles.sectionTitle}>OUR COLLECTION</h2>
             <p className={styles.sectionSubtitle}>Carefully curated mattresses designed for every sleeping preference and room size</p>
           </div>
           
-          <div className="flex gap-8 relative z-10">
+          <div className="flex gap-8">
             {/* Left Sidebar Navigation */}
             <div className={styles.collectionSidebar}>
               {filteredProducts.slice(0, 4).map((product, index) => (
@@ -453,16 +430,8 @@ export default function ProductsPage() {
           
           {/* Horizontal Product Scroll Section */}
           {filteredProducts.length > 1 && (
-            <div className="mt-16 relative z-10">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">All Products in Collection</h3>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <span>Scroll to explore</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
-              </div>
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">All Products in Collection</h3>
               <div className={`flex gap-6 overflow-x-auto pb-4 ${styles.horizontalScroll}`} style={{ scrollBehavior: 'smooth' }}>
                 {filteredProducts.map((product, index) => (
                   <div key={`horizontal-${product._id}`} className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -625,174 +594,7 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        {/* Call to Action Section */}
-        <section className="mb-20 relative">
-          <div className="bg-gradient-to-r from-teal-600 to-blue-600 rounded-3xl p-12 text-center relative overflow-hidden">
-            {/* Background patterns */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-20 h-20 border-2 border-white rounded-full"></div>
-              <div className="absolute top-10 right-10 w-16 h-16 border-2 border-white rounded-full"></div>
-              <div className="absolute bottom-0 left-1/3 w-24 h-24 border-2 border-white rounded-full"></div>
-              <div className="absolute bottom-10 right-1/4 w-12 h-12 border-2 border-white rounded-full"></div>
-            </div>
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Ready to Experience Better Sleep?
-              </h2>
-              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Join thousands of satisfied customers who have transformed their sleep with our premium mattresses. 
-                Get personalized recommendations today!
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button 
-                  onClick={() => setIsQuoteModalOpen(true)}
-                  className="bg-white text-teal-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Get Free Quote
-                </button>
-                <button 
-                  onClick={() => setIsCartModalOpen(true)}
-                  className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-teal-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  View Cart ({items.reduce((sum, item) => sum + item.quantity, 0)})
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Features Highlight Section */}
-        <section className="mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-gradient-to-br from-teal-50 to-blue-50 rounded-2xl">
-              <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">24/7 Support</h3>
-              <p className="text-gray-600">Our expert team is always ready to help you find the perfect mattress for your needs.</p>
-            </div>
-            
-            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl">
-              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Free Delivery</h3>
-              <p className="text-gray-600">Enjoy complimentary white-glove delivery and setup service for all our mattresses.</p>
-            </div>
-            
-            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl">
-              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Quality Guarantee</h3>
-              <p className="text-gray-600">100% satisfaction guaranteed with our 90-night sleep trial and 10-year warranty.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Customer Testimonials Section */}
-        <section className="mb-20 relative">
-          {/* Background decorations */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-30 blur-sm"></div>
-            <div className="absolute top-1/2 -right-16 w-40 h-40 bg-gradient-to-br from-blue-200 to-teal-200 rounded-full opacity-30 blur-sm"></div>
-            <div className="absolute -bottom-10 left-1/3 w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full opacity-30 blur-sm"></div>
-          </div>
-          
-          <div className="text-center mb-12 relative z-10">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              What Our Customers Say
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Don't just take our word for it. Here's what real customers have to say about their sleep transformation.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Best sleep I've had in years! The mattress perfectly balances comfort and support. My back pain is completely gone."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-                  S
-                </div>
-                <div className="ml-3">
-                  <p className="font-semibold text-gray-900">Sarah Johnson</p>
-                  <p className="text-sm text-gray-500">Verified Customer</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Outstanding quality and customer service. The delivery team was professional and the mattress exceeded my expectations."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
-                  M
-                </div>
-                <div className="ml-3">
-                  <p className="font-semibold text-gray-900">Mike Chen</p>
-                  <p className="text-sm text-gray-500">Verified Customer</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 md:col-span-2 lg:col-span-1">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Finally found the perfect mattress for couples! No more feeling my partner's movements. Highly recommend!"
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white font-semibold">
-                  A
-                </div>
-                <div className="ml-3">
-                  <p className="font-semibold text-gray-900">Amanda Davis</p>
-                  <p className="text-sm text-gray-500">Verified Customer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Empty State */}
         {filteredProducts.length === 0 && products.length > 0 && (
