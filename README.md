@@ -12,7 +12,7 @@ A Next.js application with product catalog and admin panel, using MongoDB for da
 ## Setup
 
 1. Install dependencies:
-   ```bash
+   ```bash   
    npm install
    ```
 
