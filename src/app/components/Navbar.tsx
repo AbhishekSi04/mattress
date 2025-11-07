@@ -34,15 +34,13 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center space a-x-2 group">
+            <Link href="/" className="flex items-center space-x-2 group">
               <div className="relative">
-                <div className="absolute -top-1 -right-1">
-                </div>
-              </div>
-              <div className="ml-2">
-                <span className="font-extrabold text-2xl bg-clip-text">
-                  <span className="text-[#1aa39a]">Mattress</span><span className="text-[#2a73af]">Wala</span>
-                </span>
+                <img
+                  src="/assets/MattresWala.jpg"
+                  alt="MattressWala Logo"
+                  className="h-15 max-h-12 w-auto object-contain"
+                />
               </div>
             </Link>
 

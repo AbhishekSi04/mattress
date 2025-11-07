@@ -5,9 +5,14 @@ import ProductCarousel from '../components/ProductCarousel';
 import { useCart } from '../../lib/cart';
 import QuantitySelector from '../components/QuantitySelector';
 import styles from './products.module.css';
-import { Heart, ShoppingCart, Search, Filter } from 'lucide-react';
+import { Heart, ShoppingCart, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import ShoppingCartModal from '../components/ShoppingCartModal';
 import QuoteRequestModal from '../components/QuoteRequestModal';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import Image from 'next/image';
 
 interface Product {
   _id: string;
@@ -88,9 +93,11 @@ export default function ProductsPage() {
         <div className={styles.headerSection}>
           <div className="flex items-center justify-between py-6">
             <div className="flex items-center gap-3">
-              <div className={styles.logoIcon}>
-                <ShoppingCart className="w-6 h-6 text-white" />
-              </div>
+              <img
+                src="/assets/MattresWala.jpg"
+                alt="MattressWala Logo"
+                className="h-15 max-h-12 w-auto object-contain"
+              />
               <div>
                 <h1 className={styles.headerTitle}>Product Catalog</h1>
                 <p className={styles.headerSubtitle}>Discover our premium mattress collection designed for ultimate comfort and quality sleep</p>
@@ -112,7 +119,7 @@ export default function ProductsPage() {
           </div>
           
           {/* Search and Filter Bar */}
-          <div className="flex gap-4 pb-6">
+          <div className="flex gap-4 pb-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black w-5 h-5" />
               <input
@@ -131,16 +138,12 @@ export default function ProductsPage() {
               <Search className="w-5 h-5" />
               <span>Search</span>
             </button>
-            <button className={styles.filtersButton}>
-              <Filter className="w-5 h-5" />
-              <span>Filters</span>
-            </button>
           </div>
         </div>
 
         {/* Hero Banner */}
         <div className={`${styles.heroSection} mb-16 relative`}>
-          <div className="relative z-10 px-8 py-16 lg:px-16 lg:py-20">
+          <div className="relative z-10 px-8 py-16 lg:px-16 lg:py-10">
             <div className="max-w-2xl">
               <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 MAKE THE MOST OUT OF<br />
@@ -428,97 +431,212 @@ export default function ProductsPage() {
             </div>
           </div>
           
-          {/* Horizontal Product Scroll Section */}
-          {filteredProducts.length > 1 && (
-            <div className="mt-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">All Products in Collection</h3>
-              <div className={`flex gap-6 overflow-x-auto pb-4 ${styles.horizontalScroll}`} style={{ scrollBehavior: 'smooth' }}>
-                {filteredProducts.map((product, index) => (
-                  <div key={`horizontal-${product._id}`} className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    {/* Product Image with Carousel */}
-                    <div className="h-48 bg-gray-50 relative">
-                      {product.images.length > 0 ? (
-                        <div className="relative w-full h-full">
-                          <ProductCarousel
-                            id={`horizontal-carousel-${product._id}`}
-                            images={product.images.map(id => `/api/images/${id}`)}
-                            alt={product.name}
-                            showNav={true}
-                          />
+          
+        </section>
+
+        {/* Featured Products Slider - 2 Rows */}
+        <section className={`${styles.featuredSliderSection} mb-20`}>
+          <div className="mb-12">
+            <h2 className={styles.sectionTitle}>FEATURED PRODUCTS</h2>
+            <p className={styles.sectionSubtitle}>Explore our complete range of premium mattresses with exclusive deals</p>
+          </div>
+          
+          <div className={styles.sliderContainer}>
+            {/* First Row */}
+            <div className={styles.sliderRow}>
+              <div className="relative">
+                <Swiper
+                  modules={[Navigation, A11y]}
+                  spaceBetween={20}
+                  slidesPerView={1}
+                  breakpoints={{
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 },
+                    1280: { slidesPerView: 4 },
+                  }}
+                  navigation={{
+                    prevEl: '#slider-row1-prev',
+                    nextEl: '#slider-row1-next',
+                  }}
+                  className="product-slider"
+                >
+                  {filteredProducts.slice(0, Math.ceil(filteredProducts.length / 2)).map((product) => (
+                    <SwiperSlide key={`slider1-${product._id}`}>
+                      <div className={styles.sliderCard}>
+                        <div className={styles.sliderCardImage}>
+                          <span className={styles.sliderBadge}>30% OFF</span>
+                          {product.images.length > 0 ? (
+                            <div className={styles.sliderCardImageInner}>
+                              <Image
+                                src={`/api/images/${product.images[0]}`}
+                                alt={product.name}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400">
-                          <div className="text-center">
-                            <svg className="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <p className="text-sm">No Image</p>
+                        <div className={styles.sliderCardContent}>
+                          <h3 className={styles.sliderCardTitle}>{product.name}</h3>
+                          <p className={styles.sliderCardDescription}>
+                            Premium comfort mattress designed for ultimate sleep experience with advanced materials and innovative technology.
+                          </p>
+                          <div className={styles.sliderCardPricing}>
+                            <span className={styles.sliderCardPrice}>₹{Math.round(product.price * 0.7).toLocaleString()}</span>
+                            <span className={styles.sliderCardOriginalPrice}>₹{Math.round(product.price).toLocaleString()}</span>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Product Details */}
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <h4 className="text-lg font-semibold text-gray-900">{product.name}</h4>
-                        <div className="text-right">
-                          <div className="text-lg font-bold text-gray-900">₹{Math.round(product.price * 0.7).toLocaleString()}</div>
-                          <div className="text-sm text-gray-500 line-through">₹{Math.round(product.price).toLocaleString()}</div>
-                        </div>
-                      </div>
-                      
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                        Premium comfort mattress designed for ultimate sleep experience with advanced materials.
-                      </p>
-                      
-                      {/* Sizes */}
-                      <div className="mb-4">
-                        <p className="text-xs text-gray-500 mb-2">Available Sizes</p>
-                        <div className="flex gap-2 flex-wrap">
-                          {product.sizes.slice(0, 3).map((size) => (
-                            <span key={size} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                              {size}
-                            </span>
-                          ))}
-                          {product.sizes.length > 3 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                              +{product.sizes.length - 3} more
-                            </span>
+                          <div className={styles.sliderCardSizes}>
+                            <span className={styles.sliderCardSizesLabel}>Available Sizes</span>
+                            <div className={styles.sliderCardSizesPills}>
+                              {product.sizes.slice(0, 3).map((size) => (
+                                <span key={size} className={styles.sliderCardSizePill}>{size}</span>
+                              ))}
+                              {product.sizes.length > 3 && (
+                                <span className={styles.sliderCardSizePill}>+{product.sizes.length - 3}</span>
+                              )}
+                            </div>
+                          </div>
+                          <div className={styles.sliderCardActions}>
+                            <div className={styles.sliderCardQuantity}>
+                              <QuantitySelector
+                                value={quantities[product._id] || 1}
+                                onChange={(qty) => handleQuantityChange(product._id, qty)}
+                                min={1}
+                                max={10}
+                              />
+                            </div>
+                            <button
+                              onClick={() => handleAddToCart(product)}
+                              className={styles.sliderCardButton}
+                            >
+                              <ShoppingCart className="w-4 h-4" />
+                              <span>Add</span>
+                            </button>
+                          </div>
+                          {messages[product._id] && (
+                            <div className={styles.sliderSuccessMessage}>
+                              <p>{messages[product._id]}</p>
+                            </div>
                           )}
                         </div>
                       </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex gap-2">
-                        <div className="flex-1">
-                          <QuantitySelector
-                            value={quantities[product._id] || 1}
-                            onChange={(qty) => handleQuantityChange(product._id, qty)}
-                            min={1}
-                            max={10}
-                          />
-                        </div>
-                        <button
-                          onClick={() => handleAddToCart(product)}
-                          className="flex-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
-                        >
-                          Add to Cart
-                        </button>
-                      </div>
-                      
-                      {/* Success Message */}
-                      {messages[product._id] && (
-                        <div className="bg-green-50 border border-green-200 rounded-lg p-2 mt-3">
-                          <p className="text-green-800 text-center text-xs">{messages[product._id]}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <button id="slider-row1-prev" className={`${styles.sliderNavButton} ${styles.sliderNavButtonPrev}`}>
+                  <ChevronLeft />
+                </button>
+                <button id="slider-row1-next" className={`${styles.sliderNavButton} ${styles.sliderNavButtonNext}`}>
+                  <ChevronRight />
+                </button>
               </div>
             </div>
-          )}
+            {/* Second Row */}
+            {filteredProducts.length > Math.ceil(filteredProducts.length / 2) && (
+              <div className={styles.sliderRow}>
+                <div className="relative">
+                  <Swiper
+                    modules={[Navigation, A11y]}
+                    spaceBetween={20}
+                    slidesPerView={1}
+                    breakpoints={{
+                      640: { slidesPerView: 2 },
+                      1024: { slidesPerView: 3 },
+                      1280: { slidesPerView: 4 },
+                    }}
+                    navigation={{
+                      prevEl: '#slider-row2-prev',
+                      nextEl: '#slider-row2-next',
+                    }}
+                    className="product-slider"
+                  >
+                    {filteredProducts.slice(Math.ceil(filteredProducts.length / 2)).map((product) => (
+                      <SwiperSlide key={`slider2-${product._id}`}>
+                        <div className={styles.sliderCard}>
+                          <div className={styles.sliderCardImage}>
+                            <span className={styles.sliderBadge}>30% OFF</span>
+                            {product.images.length > 0 ? (
+                              <div className={styles.sliderCardImageInner}>
+                                <Image
+                                  src={`/api/images/${product.images[0]}`}
+                                  alt={product.name}
+                                  fill
+                                  className="object-cover"
+                                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <svg className="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                              </div>
+                            )}
+                          </div>
+                          <div className={styles.sliderCardContent}>
+                            <h3 className={styles.sliderCardTitle}>{product.name}</h3>
+                            <p className={styles.sliderCardDescription}>
+                              Premium comfort mattress designed for ultimate sleep experience with advanced materials and innovative technology.
+                            </p>
+                            <div className={styles.sliderCardPricing}>
+                              <span className={styles.sliderCardPrice}>₹{Math.round(product.price * 0.7).toLocaleString()}</span>
+                              <span className={styles.sliderCardOriginalPrice}>₹{Math.round(product.price).toLocaleString()}</span>
+                            </div>
+                            <div className={styles.sliderCardSizes}>
+                              <span className={styles.sliderCardSizesLabel}>Available Sizes</span>
+                              <div className={styles.sliderCardSizesPills}>
+                                {product.sizes.slice(0, 3).map((size) => (
+                                  <span key={size} className={styles.sliderCardSizePill}>{size}</span>
+                                ))}
+                                {product.sizes.length > 3 && (
+                                  <span className={styles.sliderCardSizePill}>+{product.sizes.length - 3}</span>
+                                )}
+                              </div>
+                            </div>
+                            <div className={styles.sliderCardActions}>
+                              <div className={styles.sliderCardQuantity}>
+                                <QuantitySelector
+                                  value={quantities[product._id] || 1}
+                                  onChange={(qty) => handleQuantityChange(product._id, qty)}
+                                  min={1}
+                                  max={10}
+                                />
+                              </div>
+                              <button
+                                onClick={() => handleAddToCart(product)}
+                                className={styles.sliderCardButton}
+                              >
+                                <ShoppingCart className="w-4 h-4" />
+                                <span>Add</span>
+                              </button>
+                            </div>
+                            {messages[product._id] && (
+                              <div className={styles.sliderSuccessMessage}>
+                                <p>{messages[product._id]}</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  <button id="slider-row2-prev" className={`${styles.sliderNavButton} ${styles.sliderNavButtonPrev}`}>
+                    <ChevronLeft />
+                  </button>
+                  <button id="slider-row2-next" className={`${styles.sliderNavButton} ${styles.sliderNavButtonNext}`}>
+                    <ChevronRight />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </section>
 
         {/* Lifestyle Inspiration Section */}

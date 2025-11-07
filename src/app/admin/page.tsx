@@ -190,11 +190,18 @@ export default function AdminPage() {
       <div className="bg-white shadow-sm border-b border-gray-100">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-[#1aa39a] to-[#2a73af] bg-clip-text text-transparent">
-                Admin Dashboard
-              </h1>
-              <p className="text-gray-600 mt-1">Manage your mattress products</p>
+            <div className="flex items-center gap-4">
+              <img
+                src="/assets/MattresWala.jpg"
+                alt="MattressWala Logo"
+                className="w-16 h-16 object-contain rounded-lg"
+              />
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-[#1aa39a] to-[#2a73af] bg-clip-text text-transparent">
+                  Admin Dashboard
+                </h1>
+                <p className="text-gray-600 mt-1">Manage your mattress products</p>
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
