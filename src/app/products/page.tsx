@@ -5,7 +5,7 @@ import ProductCarousel from '../components/ProductCarousel';
 import { useCart } from '../../lib/cart';
 import QuantitySelector from '../components/QuantitySelector';
 import styles from './products.module.css';
-import { Heart, ShoppingCart, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, ShoppingCart, Search, Filter, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import ShoppingCartModal from '../components/ShoppingCartModal';
 import QuoteRequestModal from '../components/QuoteRequestModal';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,14 +13,13 @@ import { Navigation, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
-
-type ProductCategory = 'Mattress' | 'Bolster' | 'Cushion' | 'Pillow' | 'Quilts' | 'Sheet';
+import Link from 'next/link';
 
 interface Product {
   _id: string;
   name: string;
   price: number;
-  category: ProductCategory;
+  category?: string;
   sizes: string[];
   images: string[];
   createdAt: string;
@@ -35,7 +34,6 @@ export default function ProductsPage() {
   const [messages, setMessages] = useState<Record<string, string>>({});
   const [searchText, setSearchText] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'Show All'>('Show All');
   const [activeCollectionProduct, setActiveCollectionProduct] = useState(0);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -44,10 +42,9 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async (category?: ProductCategory) => {
+  const fetchProducts = async () => {
     try {
-      const url = category ? `/api/products?category=${category}` : '/api/products';
-      const response = await fetch(url);
+      const response = await fetch('/api/products');
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -74,16 +71,6 @@ export default function ProductsPage() {
     setTimeout(() => {
       setMessages(prev => ({ ...prev, [product._id]: '' }));
     }, 3000);
-  };
-
-  const handleCategoryChange = (category: ProductCategory | 'Show All') => {
-    setSelectedCategory(category);
-    setLoading(true);
-    if (category === 'Show All') {
-      fetchProducts();
-    } else {
-      fetchProducts(category);
-    }
   };
 
   const filteredProducts = products.filter(product =>
@@ -119,18 +106,28 @@ export default function ProductsPage() {
               </div>
             </div>
             
-            <button 
-              onClick={() => setIsCartModalOpen(true)}
-              className={styles.cartButton}
-            >
-              <ShoppingCart className="w-5 h-5" />
-              <span>My Cart</span>
-              {items.length > 0 && (
-                <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2">
-                  {items.reduce((sum, item) => sum + item.quantity, 0)}
-                </span>
-              )}
-            </button>
+            <div className="flex items-center gap-3">
+              <Link 
+                href="/royalquilts"
+                className="group relative flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#00b388] to-[#00d4a0] text-white rounded-lg font-semibold hover:from-[#0aa68f] hover:to-[#00b388] transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+              >
+                <Sparkles className="w-5 h-5 animate-pulse" />
+                <span className="hidden sm:inline">Royal Quilts</span>
+              </Link>
+              
+              <button 
+                onClick={() => setIsCartModalOpen(true)}
+                className={styles.cartButton}
+              >
+                <ShoppingCart className="w-5 h-5" />
+                <span>My Cart</span>
+                {items.length > 0 && (
+                  <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2">
+                    {items.reduce((sum, item) => sum + item.quantity, 0)}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
           
           {/* Search and Filter Bar */}
@@ -155,79 +152,6 @@ export default function ProductsPage() {
             </button>
           </div>
 
-          {/* Category Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-3 pb-6 border-b border-gray-200">
-            <button
-              onClick={() => handleCategoryChange('Show All')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Show All'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Show All
-            </button>
-            <button
-              onClick={() => handleCategoryChange('Mattress')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Mattress'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Mattress
-            </button>
-            <button
-              onClick={() => handleCategoryChange('Bolster')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Bolster'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Bolster
-            </button>
-            <button
-              onClick={() => handleCategoryChange('Cushion')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Cushion'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Cushion
-            </button>
-            <button
-              onClick={() => handleCategoryChange('Pillow')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Pillow'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Pillow
-            </button>
-            <button
-              onClick={() => handleCategoryChange('Quilts')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Quilts'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Quilts
-            </button>
-            <button
-              onClick={() => handleCategoryChange('Sheet')}
-              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
-                selectedCategory === 'Sheet'
-                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
-              }`}
-            >
-              Sheet
-            </button>
-          </div>
         </div>
 
         {/* Hero Banner */}

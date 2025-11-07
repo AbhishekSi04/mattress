@@ -6,6 +6,15 @@ import { useEffect, useState } from 'react';
 
 type ProductCategory = 'Mattress' | 'Bolster' | 'Cushion' | 'Pillow' | 'Quilts' | 'Sheet';
 
+export const PRODUCT_SIZES = {
+  Mattress: ['Single', 'Double', 'Queen', 'King', 'Super King'],
+  Bolster: ['Small (20x8)', 'Medium (24x9)', 'Large (30x10)', 'Extra Large (36x10)'],
+  Cushion: ['Small (12x12)', 'Medium (16x16)', 'Large (18x18)', 'Rectangle (24x16)'],
+  Pillow: ['Standard (20x26)', 'Queen (20x30)', 'King (20x36)', 'Contour (Ergonomic)'],
+  Quilts: ['Single', 'Double', 'Queen', 'King'],
+  Sheet: ['Single', 'Double', 'Queen', 'King', 'Fitted Sheet'],
+} as const;
+
 interface Product {
   _id: string;
   name: string;
@@ -23,7 +32,9 @@ export default function AdminPage() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState<ProductCategory>('Mattress');
-  const [sizes, setSizes] = useState('');
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [customSize, setCustomSize] = useState('');
+  const [showCustomSize, setShowCustomSize] = useState(false);
   const [images, setImages] = useState<FileList | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -32,7 +43,9 @@ export default function AdminPage() {
   const [editName, setEditName] = useState('');
   const [editPrice, setEditPrice] = useState('');
   const [editCategory, setEditCategory] = useState<ProductCategory>('Mattress');
-  const [editSizes, setEditSizes] = useState('');
+  const [editSelectedSizes, setEditSelectedSizes] = useState<string[]>([]);
+  const [editCustomSize, setEditCustomSize] = useState('');
+  const [editShowCustomSize, setEditShowCustomSize] = useState(false);
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -42,6 +55,21 @@ export default function AdminPage() {
       fetchProducts();
     }
   }, [session, status, router]);
+
+  // Reset selected sizes when category changes
+  useEffect(() => {
+    setSelectedSizes([]);
+    setCustomSize('');
+    setShowCustomSize(false);
+  }, [category]);
+
+  useEffect(() => {
+    if (editingProduct) {
+      setEditSelectedSizes([]);
+      setEditCustomSize('');
+      setEditShowCustomSize(false);
+    }
+  }, [editCategory]);
 
 
   const fetchProducts = async () => {
@@ -82,7 +110,19 @@ export default function AdminPage() {
     setEditName(product.name);
     setEditPrice(product.price.toString());
     setEditCategory(product.category);
-    setEditSizes(product.sizes.join(', '));
+    
+    const predefinedSizes = [...PRODUCT_SIZES[product.category]] as string[];
+    const customSizes = product.sizes.filter(size => !predefinedSizes.includes(size));
+    const selectedPredefined = product.sizes.filter(size => predefinedSizes.includes(size));
+    
+    setEditSelectedSizes(selectedPredefined);
+    if (customSizes.length > 0) {
+      setEditCustomSize(customSizes.join(', '));
+      setEditShowCustomSize(true);
+    } else {
+      setEditCustomSize('');
+      setEditShowCustomSize(false);
+    }
   };
 
   const handleUpdate = async () => {
@@ -94,9 +134,8 @@ export default function AdminPage() {
       return;
     }
 
-    const parsedSizes = editSizes.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    if (parsedSizes.length === 0) {
-      setMessage('Please enter at least one size');
+    if (editSelectedSizes.length === 0) {
+      setMessage('Please select at least one size');
       return;
     }
 
@@ -116,7 +155,7 @@ export default function AdminPage() {
           name: editName.trim(),
           price: parsedPrice,
           category: editCategory,
-          sizes: parsedSizes,
+          sizes: editSelectedSizes,
         }),
       });
 
@@ -142,11 +181,56 @@ export default function AdminPage() {
     setEditName('');
     setEditPrice('');
     setEditCategory('Mattress');
-    setEditSizes('');
+    setEditSelectedSizes([]);
+    setEditCustomSize('');
+    setEditShowCustomSize(false);
+  };
+
+  const toggleSizeSelection = (size: string, isEdit: boolean = false) => {
+    if (isEdit) {
+      setEditSelectedSizes(prev => 
+        prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+      );
+    } else {
+      setSelectedSizes(prev => 
+        prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+      );
+    }
+  };
+
+  const addCustomSize = (isEdit: boolean = false) => {
+    const customSizeValue = isEdit ? editCustomSize : customSize;
+    if (!customSizeValue.trim()) return;
+
+    const customSizesArray = customSizeValue.split(',').map(s => s.trim()).filter(s => s.length > 0);
+    
+    if (isEdit) {
+      setEditSelectedSizes(prev => [...prev, ...customSizesArray.filter(s => !prev.includes(s))]);
+      setEditCustomSize('');
+      setEditShowCustomSize(false);
+    } else {
+      setSelectedSizes(prev => [...prev, ...customSizesArray.filter(s => !prev.includes(s))]);
+      setCustomSize('');
+      setShowCustomSize(false);
+    }
+  };
+
+  const removeSize = (size: string, isEdit: boolean = false) => {
+    if (isEdit) {
+      setEditSelectedSizes(prev => prev.filter(s => s !== size));
+    } else {
+      setSelectedSizes(prev => prev.filter(s => s !== size));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (selectedSizes.length === 0) {
+      setMessage('Please select at least one size');
+      return;
+    }
+    
     setLoading(true);
     setMessage('');
 
@@ -154,7 +238,7 @@ export default function AdminPage() {
     formData.append('name', name);
     formData.append('price', price);
     formData.append('category', category);
-    formData.append('sizes', sizes);
+    formData.append('sizes', selectedSizes.join(','));
     if (images) {
       for (let i = 0; i < images.length; i++) {
         formData.append('images', images[i]);
@@ -172,7 +256,9 @@ export default function AdminPage() {
         setName('');
         setPrice('');
         setCategory('Mattress');
-        setSizes('');
+        setSelectedSizes([]);
+        setCustomSize('');
+        setShowCustomSize(false);
         setImages(null);
         fetchProducts(); // Refresh the products list
       } else {
@@ -350,18 +436,95 @@ export default function AdminPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="sizes" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
                       Available Sizes
                     </label>
-                    <input
-                      type="text"
-                      id="sizes"
-                      value={sizes}
-                      onChange={(e) => setSizes(e.target.value)}
-                      placeholder="Twin, Full, Queen, King"
-                      required
-                      className=" text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
-                    />
+                    
+                    {/* Predefined Sizes */}
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      {PRODUCT_SIZES[category].map((size) => (
+                        <label
+                          key={size}
+                          className={`flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer transition-all ${
+                            selectedSizes.includes(size)
+                              ? 'bg-[#1aa39a]/10 border-[#1aa39a] text-[#1aa39a]'
+                              : 'border-gray-200 hover:border-[#1aa39a]/50'
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedSizes.includes(size)}
+                            onChange={() => toggleSizeSelection(size)}
+                            className="w-4 h-4 text-[#1aa39a] border-gray-300 rounded focus:ring-[#1aa39a]"
+                          />
+                          <span className="text-sm text-gray-700">{size}</span>
+                        </label>
+                      ))}
+                    </div>
+
+                    {/* Selected Sizes Display */}
+                    {selectedSizes.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-3 p-3 bg-gray-50 rounded-lg">
+                        {selectedSizes.map((size) => (
+                          <span
+                            key={size}
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-[#1aa39a] text-white text-xs rounded-full"
+                          >
+                            {size}
+                            <button
+                              type="button"
+                              onClick={() => removeSize(size)}
+                              className="hover:bg-[#159089] rounded-full p-0.5"
+                            >
+                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Custom Size Option */}
+                    {!showCustomSize ? (
+                      <button
+                        type="button"
+                        onClick={() => setShowCustomSize(true)}
+                        className="text-sm text-[#1aa39a] hover:text-[#159089] font-medium flex items-center gap-1"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Add Custom Size
+                      </button>
+                    ) : (
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={customSize}
+                          onChange={(e) => setCustomSize(e.target.value)}
+                          placeholder="e.g., Custom 72x84"
+                          className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] text-sm text-black"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => addCustomSize()}
+                          className="px-4 py-2 bg-[#1aa39a] text-white rounded-lg hover:bg-[#159089] text-sm font-medium"
+                        >
+                          Add
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setShowCustomSize(false);
+                            setCustomSize('');
+                          }}
+                          className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -488,31 +651,110 @@ export default function AdminPage() {
                               </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                                <select
-                                  value={editCategory}
-                                  onChange={(e) => setEditCategory(e.target.value as ProductCategory)}
-                                  className="text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200 bg-white"
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                              <select
+                                value={editCategory}
+                                onChange={(e) => setEditCategory(e.target.value as ProductCategory)}
+                                className="text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200 bg-white"
+                              >
+                                <option value="Mattress">Mattress</option>
+                                <option value="Bolster">Bolster</option>
+                                <option value="Cushion">Cushion</option>
+                                <option value="Pillow">Pillow</option>
+                                <option value="Quilts">Quilts</option>
+                                <option value="Sheet">Sheet</option>
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-3">Available Sizes</label>
+                              
+                              {/* Predefined Sizes */}
+                              <div className="grid grid-cols-2 gap-2 mb-3">
+                                {PRODUCT_SIZES[editCategory].map((size) => (
+                                  <label
+                                    key={size}
+                                    className={`flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer transition-all ${
+                                      editSelectedSizes.includes(size)
+                                        ? 'bg-[#1aa39a]/10 border-[#1aa39a] text-[#1aa39a]'
+                                        : 'border-gray-200 hover:border-[#1aa39a]/50'
+                                    }`}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={editSelectedSizes.includes(size)}
+                                      onChange={() => toggleSizeSelection(size, true)}
+                                      className="w-4 h-4 text-[#1aa39a] border-gray-300 rounded focus:ring-[#1aa39a]"
+                                    />
+                                    <span className="text-sm text-gray-700">{size}</span>
+                                  </label>
+                                ))}
+                              </div>
+
+                              {/* Selected Sizes Display */}
+                              {editSelectedSizes.length > 0 && (
+                                <div className="flex flex-wrap gap-2 mb-3 p-3 bg-gray-50 rounded-lg">
+                                  {editSelectedSizes.map((size) => (
+                                    <span
+                                      key={size}
+                                      className="inline-flex items-center gap-1 px-3 py-1 bg-[#1aa39a] text-white text-xs rounded-full"
+                                    >
+                                      {size}
+                                      <button
+                                        type="button"
+                                        onClick={() => removeSize(size, true)}
+                                        className="hover:bg-[#159089] rounded-full p-0.5"
+                                      >
+                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                      </button>
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+
+                              {/* Custom Size Option */}
+                              {!editShowCustomSize ? (
+                                <button
+                                  type="button"
+                                  onClick={() => setEditShowCustomSize(true)}
+                                  className="text-sm text-[#1aa39a] hover:text-[#159089] font-medium flex items-center gap-1"
                                 >
-                                  <option value="Mattress">Mattress</option>
-                                  <option value="Bolster">Bolster</option>
-                                  <option value="Cushion">Cushion</option>
-                                  <option value="Pillow">Pillow</option>
-                                  <option value="Quilts">Quilts</option>
-                                  <option value="Sheet">Sheet</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Sizes</label>
-                                <input
-                                  type="text"
-                                  value={editSizes}
-                                  onChange={(e) => setEditSizes(e.target.value)}
-                                  className="text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
-                                />
-                              </div>
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                                  Add Custom Size
+                                </button>
+                              ) : (
+                                <div className="flex gap-2">
+                                  <input
+                                    type="text"
+                                    value={editCustomSize}
+                                    onChange={(e) => setEditCustomSize(e.target.value)}
+                                    placeholder="e.g., Custom 72x84"
+                                    className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] text-sm text-black"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => addCustomSize(true)}
+                                    className="px-4 py-2 bg-[#1aa39a] text-white rounded-lg hover:bg-[#159089] text-sm font-medium"
+                                  >
+                                    Add
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setEditShowCustomSize(false);
+                                      setEditCustomSize('');
+                                    }}
+                                    className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              )}
                             </div>
 
                             <div className="flex gap-3">

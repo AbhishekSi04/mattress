@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { CartItem } from '../../lib/cart';
 
 interface QuoteRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
+  cartItems?: CartItem[];
+  total?: number;
 }
 
-export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModalProps) {
+export default function QuoteRequestModal({ isOpen, onClose, cartItems, total }: QuoteRequestModalProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -30,8 +33,8 @@ export default function QuoteRequestModal({ isOpen, onClose }: QuoteRequestModal
         },
         body: JSON.stringify({
           ...formData,
-          cartItems: [], // Empty cart for general quote requests
-          total: 0,
+          cartItems: cartItems ?? [], // Empty cart for general quote requests
+          total: total ?? 0,
           timestamp: new Date().toISOString(),
         }),
       });
