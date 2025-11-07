@@ -14,14 +14,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create a transporter using Gmail (you'll need to configure this with your email service)
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com',
-        pass: process.env.EMAIL_PASS || 'your-app-password', // Use app password for Gmail
-      },
-    });
+    // Check if email is configured
+    const emailConfigured = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS;
+    
+    let transporter = null;
+    if (emailConfigured) {
+      // Create a transporter using SMTP
+      transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT || '587'),
+        secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+    } else {
+      console.log('Email not configured. Quote request will be logged only.');
+    }
 
     // Generate cart items HTML
     const cartItemsHtml = cartItems && cartItems.length > 0 ? cartItems.map((item: any) => `
@@ -107,8 +117,8 @@ export async function POST(request: NextRequest) {
         <div style="text-align: center; color: #6b7280; font-size: 14px;">
           <p>If you have any immediate questions, feel free to contact us:</p>
           <p style="margin: 10px 0;">
-            📧 <a href="mailto:support@mattressstore.com" style="color: #0d9488;">support@mattressstore.com</a><br>
-            📞 <a href="tel:+911234567890" style="color: #0d9488;">+91 123 456 7890</a>
+            📧 <a href="mailto:${process.env.SMTP_USER}" style="color: #0d9488;">${process.env.SMTP_USER}</a><br>
+            ${process.env.CONTACT_PHONE ? `📞 <a href="tel:${process.env.CONTACT_PHONE}" style="color: #0d9488;">${process.env.CONTACT_PHONE}</a>` : ''}
           </p>
           <p style="margin-top: 30px;">
             Thank you for choosing our premium mattress collection!
@@ -202,26 +212,41 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    // Send email to customer
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'your-email@gmail.com',
-      to: email,
-      subject: '✅ Quote Request Received - Premium Mattress Collection',
-      html: customerEmailHtml,
-    });
+    // Send emails only if configured
+    if (transporter) {
+      // Send email to customer
+      await transporter.sendMail({
+        from: `"${process.env.SMTP_FROM_NAME || 'MattressWala'}" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: '✅ Quote Request Received - Premium Mattress Collection',
+        html: customerEmailHtml,
+      });
 
-    // Send email to admin/company
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'your-email@gmail.com',
-      to: process.env.ADMIN_EMAIL || 'admin@mattressstore.com',
-      subject: `🔔 New Quote Request from ${name} - ₹${total.toLocaleString()}`,
-      html: adminEmailHtml,
+      // Send email to admin/company
+      await transporter.sendMail({
+        from: `"${process.env.SMTP_FROM_NAME || 'MattressWala'}" <${process.env.SMTP_USER}>`,
+        to: process.env.ADMIN_EMAIL || process.env.SMTP_USER,
+        subject: `🔔 New Quote Request from ${name} - ₹${total.toLocaleString()}`,
+        html: adminEmailHtml,
+      });
+    }
+
+    // Log quote request for debugging
+    console.log('Quote Request Received:', {
+      name,
+      phone,
+      email,
+      message,
+      itemCount: cartItems?.length || 0,
+      total,
+      timestamp,
+      emailSent: !!transporter
     });
 
     return NextResponse.json(
       { 
         success: true, 
-        message: 'Quote request sent successfully!' 
+        message: 'Quote request received successfully!' 
       },
       { status: 200 }
     );
