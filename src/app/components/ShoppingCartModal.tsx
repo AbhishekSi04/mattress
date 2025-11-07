@@ -26,9 +26,9 @@ export default function ShoppingCartModal({ isOpen, onClose }: ShoppingCartModal
   return (
     <>
       <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 overflow-y-auto animate-fadeIn">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-[95vh] overflow-hidden mt-4 animate-slideDown">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[95vh] overflow-hidden mt-4 animate-slideDown flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +127,7 @@ export default function ShoppingCartModal({ isOpen, onClose }: ShoppingCartModal
 
           {/* Missed something section */}
           {items.length > 0 && (
-            <div className="px-8 py-4 border-t border-gray-200">
+            <div className="px-8 py-4 border-t border-gray-200 flex-shrink-0">
               <div className="text-base text-gray-600">
                 Missed something?
                 <button 
@@ -142,7 +142,7 @@ export default function ShoppingCartModal({ isOpen, onClose }: ShoppingCartModal
 
           {/* Order Summary */}
           {items.length > 0 && (
-            <div className="border-t border-gray-200 bg-green-50 p-8">
+            <div className="border-t border-gray-200 bg-green-50 p-8 flex-shrink-0">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
