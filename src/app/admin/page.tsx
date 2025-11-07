@@ -4,10 +4,13 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+type ProductCategory = 'Mattress' | 'Bolster' | 'Cushion' | 'Pillow' | 'Quilts' | 'Sheet';
+
 interface Product {
   _id: string;
   name: string;
   price: number;
+  category: ProductCategory;
   sizes: string[];
   images: string[];
   createdAt: string;
@@ -19,6 +22,7 @@ export default function AdminPage() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [category, setCategory] = useState<ProductCategory>('Mattress');
   const [sizes, setSizes] = useState('');
   const [images, setImages] = useState<FileList | null>(null);
   const [loading, setLoading] = useState(false);
@@ -27,6 +31,7 @@ export default function AdminPage() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [editName, setEditName] = useState('');
   const [editPrice, setEditPrice] = useState('');
+  const [editCategory, setEditCategory] = useState<ProductCategory>('Mattress');
   const [editSizes, setEditSizes] = useState('');
 
   useEffect(() => {
@@ -76,6 +81,7 @@ export default function AdminPage() {
     setEditingProduct(product);
     setEditName(product.name);
     setEditPrice(product.price.toString());
+    setEditCategory(product.category);
     setEditSizes(product.sizes.join(', '));
   };
 
@@ -109,6 +115,7 @@ export default function AdminPage() {
           id: editingProduct._id,
           name: editName.trim(),
           price: parsedPrice,
+          category: editCategory,
           sizes: parsedSizes,
         }),
       });
@@ -134,6 +141,7 @@ export default function AdminPage() {
     setEditingProduct(null);
     setEditName('');
     setEditPrice('');
+    setEditCategory('Mattress');
     setEditSizes('');
   };
 
@@ -145,6 +153,7 @@ export default function AdminPage() {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', price);
+    formData.append('category', category);
     formData.append('sizes', sizes);
     if (images) {
       for (let i = 0; i < images.length; i++) {
@@ -162,6 +171,7 @@ export default function AdminPage() {
         setMessage('Product created successfully!');
         setName('');
         setPrice('');
+        setCategory('Mattress');
         setSizes('');
         setImages(null);
         fetchProducts(); // Refresh the products list
@@ -320,6 +330,26 @@ export default function AdminPage() {
                   </div>
 
                   <div>
+                    <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                      Product Category
+                    </label>
+                    <select
+                      id="category"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value as ProductCategory)}
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200 text-black bg-white"
+                    >
+                      <option value="Mattress">Mattress</option>
+                      <option value="Bolster">Bolster</option>
+                      <option value="Cushion">Cushion</option>
+                      <option value="Pillow">Pillow</option>
+                      <option value="Quilts">Quilts</option>
+                      <option value="Sheet">Sheet</option>
+                    </select>
+                  </div>
+
+                  <div>
                     <label htmlFor="sizes" className="block text-sm font-medium text-gray-700 mb-2">
                       Available Sizes
                     </label>
@@ -458,14 +488,31 @@ export default function AdminPage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">Sizes</label>
-                              <input
-                                type="text"
-                                value={editSizes}
-                                onChange={(e) => setEditSizes(e.target.value)}
-                                className="text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
-                              />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                                <select
+                                  value={editCategory}
+                                  onChange={(e) => setEditCategory(e.target.value as ProductCategory)}
+                                  className="text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200 bg-white"
+                                >
+                                  <option value="Mattress">Mattress</option>
+                                  <option value="Bolster">Bolster</option>
+                                  <option value="Cushion">Cushion</option>
+                                  <option value="Pillow">Pillow</option>
+                                  <option value="Quilts">Quilts</option>
+                                  <option value="Sheet">Sheet</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Sizes</label>
+                                <input
+                                  type="text"
+                                  value={editSizes}
+                                  onChange={(e) => setEditSizes(e.target.value)}
+                                  className="text-black w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1aa39a]/20 focus:border-[#1aa39a] transition-all duration-200"
+                                />
+                              </div>
                             </div>
 
                             <div className="flex gap-3">
@@ -501,7 +548,12 @@ export default function AdminPage() {
                                   </div>
                                 )}
                                 <div className="flex-1">
-                                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{product.name}</h3>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                                    <span className="px-2.5 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+                                      {product.category}
+                                    </span>
+                                  </div>
                                   <p className="text-2xl font-bold text-[#1aa39a] mb-2">₹{Math.round(product.price)}</p>
                                   <div className="flex flex-wrap gap-2 mb-2">
                                     {product.sizes.map((size) => (

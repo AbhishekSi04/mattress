@@ -14,10 +14,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
 
+type ProductCategory = 'Mattress' | 'Bolster' | 'Cushion' | 'Pillow' | 'Quilts' | 'Sheet';
+
 interface Product {
   _id: string;
   name: string;
   price: number;
+  category: ProductCategory;
   sizes: string[];
   images: string[];
   createdAt: string;
@@ -32,6 +35,7 @@ export default function ProductsPage() {
   const [messages, setMessages] = useState<Record<string, string>>({});
   const [searchText, setSearchText] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'Show All'>('Show All');
   const [activeCollectionProduct, setActiveCollectionProduct] = useState(0);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -40,9 +44,10 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (category?: ProductCategory) => {
     try {
-      const response = await fetch('/api/products');
+      const url = category ? `/api/products?category=${category}` : '/api/products';
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -69,6 +74,16 @@ export default function ProductsPage() {
     setTimeout(() => {
       setMessages(prev => ({ ...prev, [product._id]: '' }));
     }, 3000);
+  };
+
+  const handleCategoryChange = (category: ProductCategory | 'Show All') => {
+    setSelectedCategory(category);
+    setLoading(true);
+    if (category === 'Show All') {
+      fetchProducts();
+    } else {
+      fetchProducts(category);
+    }
   };
 
   const filteredProducts = products.filter(product =>
@@ -137,6 +152,80 @@ export default function ProductsPage() {
             >
               <Search className="w-5 h-5" />
               <span>Search</span>
+            </button>
+          </div>
+
+          {/* Category Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-3 pb-6 border-b border-gray-200">
+            <button
+              onClick={() => handleCategoryChange('Show All')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Show All'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Show All
+            </button>
+            <button
+              onClick={() => handleCategoryChange('Mattress')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Mattress'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Mattress
+            </button>
+            <button
+              onClick={() => handleCategoryChange('Bolster')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Bolster'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Bolster
+            </button>
+            <button
+              onClick={() => handleCategoryChange('Cushion')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Cushion'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Cushion
+            </button>
+            <button
+              onClick={() => handleCategoryChange('Pillow')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Pillow'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Pillow
+            </button>
+            <button
+              onClick={() => handleCategoryChange('Quilts')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Quilts'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Quilts
+            </button>
+            <button
+              onClick={() => handleCategoryChange('Sheet')}
+              className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                selectedCategory === 'Sheet'
+                  ? 'bg-gradient-to-r from-[#1aa39a] to-[#2a73af] text-white shadow-lg'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#1aa39a] hover:text-[#1aa39a]'
+              }`}
+            >
+              Sheet
             </button>
           </div>
         </div>

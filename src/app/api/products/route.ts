@@ -6,9 +6,12 @@ import { getAllProducts, createProduct, updateProduct, deleteProduct } from '../
 import { connectToDatabase } from '../../../lib/mongodb';
 import { GridFSBucket, ObjectId } from 'mongodb';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const products = await getAllProducts();
+    const { searchParams } = new URL(request.url);
+    const category = searchParams.get('category') as any;
+    
+    const products = await getAllProducts(category);
     return NextResponse.json(products);
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -35,22 +38,24 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const price = formData.get('price') as string;
+    const category = formData.get('category') as string;
     const sizes = formData.get('sizes') as string;
     const images = formData.getAll('images') as File[];
 
-    console.log('Form data received:', { name, price, sizes, imageCount: images?.length });
+    console.log('Form data received:', { name, price, category, sizes, imageCount: images?.length });
 
     // Validate inputs
-    if (!name || !price || !sizes || !images || images.length === 0) {
+    if (!name || !price || !category || !sizes || !images || images.length === 0) {
       console.log('Missing required fields');
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const productName = name.trim();
     const productPrice = parseFloat(price);
+    const productCategory = category.trim() as any;
     const productSizes = sizes.split(',').map(s => s.trim()).filter(s => s.length > 0);
 
-    if (!productName || isNaN(productPrice) || productPrice <= 0 || productSizes.length === 0) {
+    if (!productName || isNaN(productPrice) || productPrice <= 0 || !productCategory || productSizes.length === 0) {
       console.log('Invalid input data');
       return NextResponse.json({ error: 'Invalid input data' }, { status: 400 });
     }
@@ -122,6 +127,7 @@ export async function POST(request: NextRequest) {
     const product = await createProduct({
       name: productName,
       price: productPrice,
+      category: productCategory,
       sizes: productSizes,
       images: imageIds,
     });

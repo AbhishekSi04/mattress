@@ -1,19 +1,23 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../lib/mongodb';
 
+export type ProductCategory = 'Mattress' | 'Bolster' | 'Cushion' | 'Pillow' | 'Quilts' | 'Sheet';
+
 export interface Product {
   _id?: ObjectId;
   name: string;
   price: number;
+  category: ProductCategory;
   sizes: string[];
   images: ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-export async function getAllProducts(): Promise<Product[]> {
+export async function getAllProducts(category?: ProductCategory): Promise<Product[]> {
   const { db } = await connectToDatabase();
-  const products = await db.collection('products').find({}).toArray();
+  const filter = category ? { category } : {};
+  const products = await db.collection('products').find(filter).toArray();
   return products as Product[];
 }
 

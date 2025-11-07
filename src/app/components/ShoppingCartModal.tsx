@@ -25,167 +25,190 @@ export default function ShoppingCartModal({ isOpen, onClose }: ShoppingCartModal
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4 overflow-y-auto animate-fadeIn">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[95vh] overflow-hidden mt-4 animate-slideDown flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0h9" />
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 bg-black bg-opacity-50 z-50 animate-fadeIn"
+        onClick={onClose}
+      />
+      
+      {/* Side Drawer */}
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-2xl bg-white shadow-2xl animate-slideInRight flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-teal-500 to-teal-600 flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0h9" />
+                </svg>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white">Shopping Cart</h2>
+              <p className="text-teal-50">{items.length} {items.length === 1 ? 'item' : 'items'} in your cart</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Cart Items */}
+        <div className="flex-1 overflow-y-auto bg-gray-50">
+          {items.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full py-20">
+              <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-6">
+                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
               </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">Shopping Cart</h2>
-                <p className="text-gray-600">{items.length} items in your cart</p>
-              </div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-2">Your cart is empty</h3>
+              <p className="text-gray-600 mb-6">Add some products to get started</p>
+              <button
+                onClick={onClose}
+                className="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium"
+              >
+                Continue Shopping
+              </button>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
-          {/* Cart Items */}
-          <div className="flex-1 overflow-y-auto">
-            {items.length === 0 ? (
-              <div className="text-center py-20">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4">Your cart is empty</h3>
-                <p className="text-lg text-gray-600">Add some products to get started</p>
-              </div>
-            ) : (
-              <div className="p-8">
-                {items.map((item) => (
-                  <div key={item.id} className="flex items-center gap-6 py-6 border-b border-gray-200 last:border-b-0">
+          ) : (
+            <div className="p-6 space-y-4">
+              {items.map((item) => (
+                <div key={item.id} className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-start gap-4">
                     {/* Product Image */}
-                    <div className="w-24 h-24 bg-gray-100 flex-shrink-0 rounded">
+                    <div className="w-20 h-20 bg-gray-100 flex-shrink-0 rounded-lg overflow-hidden">
                       {item.imageUrls && item.imageUrls.length > 0 ? (
                         <img
                           src={item.imageUrls[0]}
                           alt={item.title}
-                          className="w-full h-full object-cover rounded"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <div className="w-12 h-8 bg-gray-300 rounded"></div>
+                          <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
                         </div>
                       )}
                     </div>
 
                     {/* Product Details */}
-                    <div className="flex-1">
-                      <h4 className="text-xl font-medium text-gray-900">{item.title}</h4>
-                      <div className="text-base text-gray-600 mt-2">
-                        <div className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded text-sm">
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-1 truncate">{item.title}</h4>
+                      <div className="flex items-center gap-2 flex-wrap mb-2">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                           Size: 1500×1900
+                        </span>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                          30% OFF
+                        </span>
+                      </div>
+                      
+                      {/* Price */}
+                      <div className="flex items-baseline gap-2 mb-3">
+                        <span className="text-xl font-bold text-teal-600">
+                          ₹{(Math.round(item.price * 0.7) * item.quantity).toLocaleString()}
+                        </span>
+                        <span className="text-sm text-gray-500 line-through">
+                          ₹{(item.price * item.quantity).toLocaleString()}
+                        </span>
+                      </div>
+
+                      {/* Quantity Controls & Remove */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+                          <button
+                            onClick={() => updateItemQty(item.id, Math.max(1, item.quantity - 1))}
+                            className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-white hover:text-teal-600 rounded transition-colors"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </button>
+                          <span className="w-10 text-center text-sm font-semibold">{item.quantity}</span>
+                          <button
+                            onClick={() => updateItemQty(item.id, item.quantity + 1)}
+                            className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-white hover:text-teal-600 rounded transition-colors"
+                          >
+                            <Plus className="w-4 h-4" />
+                          </button>
                         </div>
-                      </div>
-                      <div className="text-base text-red-600 mt-2 font-medium">15% OFF</div>
-                    </div>
 
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => updateItemQty(item.id, Math.max(1, item.quantity - 1))}
-                        className="w-10 h-10 border border-gray-300 flex items-center justify-center text-lg hover:bg-gray-50 rounded"
-                      >
-                        −
-                      </button>
-                      <span className="w-12 text-center text-lg font-medium">{item.quantity}</span>
-                      <button
-                        onClick={() => updateItemQty(item.id, item.quantity + 1)}
-                        className="w-10 h-10 border border-gray-300 flex items-center justify-center text-lg hover:bg-gray-50 rounded"
-                      >
-                        +
-                      </button>
-                    </div>
-
-                    {/* Price */}
-                    <div className="text-right min-w-[120px]">
-                      <div className="text-xl font-semibold text-teal-600">
-                        ₹{(Math.round(item.price * 0.7) * item.quantity).toLocaleString()}
-                      </div>
-                      <div className="text-sm text-gray-500 line-through">
-                        ₹{(item.price * item.quantity).toLocaleString()}
+                        {/* Remove Button */}
+                        <button
+                          onClick={() => removeItem(item.id)}
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors"
+                          title="Remove item"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
-
-                    {/* Remove Button */}
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="text-red-500 hover:text-red-700 p-2"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Missed something section */}
-          {items.length > 0 && (
-            <div className="px-8 py-4 border-t border-gray-200 flex-shrink-0">
-              <div className="text-base text-gray-600">
-                Missed something?
-                <button 
-                  onClick={onClose}
-                  className="text-gray-900 hover:text-gray-700 ml-3 font-medium"
-                >
-                  + Add More Items
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Order Summary */}
-          {items.length > 0 && (
-            <div className="border-t border-gray-200 bg-green-50 p-8 flex-shrink-0">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Order Summary</h3>
-              </div>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-lg text-gray-700">
-                  <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                  <span className="font-medium">₹{Math.round(subtotal * 0.7).toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-lg text-gray-700">
-                  <span>Shipping</span>
-                  <span className="text-green-600 font-semibold">FREE</span>
-                </div>
-              </div>
-
-              <div className="border-t border-green-200 pt-4 mb-6">
-                <div className="flex justify-between text-2xl font-bold text-gray-900">
-                  <span>Estimated Total</span>
-                  <span>₹{Math.round(total * 0.7).toLocaleString()}</span>
-                </div>
-              </div>
-
-              <button
-                onClick={handleRequestQuote}
-                className="w-full bg-teal-600 text-white py-4 px-8 rounded-lg text-lg font-semibold hover:bg-teal-700 transition-colors flex items-center justify-center gap-3"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Request Quote
-              </button>
-
-              <p className="text-sm text-gray-500 text-center mt-4">
-                Submit a quote request and our team will contact you with the best pricing and delivery options.
-              </p>
+              ))}
             </div>
           )}
         </div>
+
+        {/* Missed something section */}
+        {items.length > 0 && (
+          <div className="px-6 py-4 bg-blue-50 border-t border-blue-100 flex-shrink-0">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-700">Need something else?</span>
+              <button 
+                onClick={onClose}
+                className="text-sm text-teal-600 hover:text-teal-700 font-semibold flex items-center gap-1"
+              >
+                <Plus className="w-4 h-4" />
+                Add More Items
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Order Summary */}
+        {items.length > 0 && (
+          <div className="border-t border-gray-200 bg-white p-6 flex-shrink-0 shadow-lg">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">Order Summary</h3>
+
+            <div className="space-y-3 mb-4">
+              <div className="flex justify-between text-sm text-gray-600">
+                <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
+                <span className="font-semibold text-gray-900">₹{Math.round(subtotal * 0.7).toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-sm text-gray-600">
+                <span>Shipping</span>
+                <span className="text-green-600 font-bold">FREE</span>
+              </div>
+              <div className="flex justify-between text-sm text-gray-600">
+                <span>Discount (30%)</span>
+                <span className="text-red-600 font-semibold">-₹{Math.round(subtotal * 0.3).toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div className="border-t-2 border-gray-200 pt-4 mb-5">
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-bold text-gray-900">Total</span>
+                <span className="text-2xl font-bold text-teal-600">₹{Math.round(total * 0.7).toLocaleString()}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={handleRequestQuote}
+              className="w-full bg-gradient-to-r from-teal-600 to-teal-700 text-white py-4 px-6 rounded-xl text-base font-bold hover:from-teal-700 hover:to-teal-800 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transform hover:scale-[1.02]"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Request Quote
+            </button>
+
+            <p className="text-xs text-gray-500 text-center mt-3">
+              🔒 Secure checkout • Free shipping • 24hr response
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Quote Request Modal */}
